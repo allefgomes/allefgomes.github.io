@@ -1,7 +1,7 @@
-title: devlopr
-subtitle: A Jekyll Theme Built for Developers
+title: Allef Gomes
+subtitle: Desenvolvedor Fullstack
 description: >- # this means to ignore newlines until "baseurl:"
-  devlopr-jekyll is a Jekyll Theme Built For Developers
+  Prazer! Sou Allef Gomes, desenvolvedor de sistemas, graduado em Sistemas para Internet.
 
 url: "" # the base hostname & protocol for your site, e.g. https://example.github.io
 baseurl: "" # the subpath of your site, e.g. /blog
@@ -11,38 +11,44 @@ urls:
       url: /about
     - text: Blog
       url: /blog
-    - text: Gallery
-      url: /gallery
-    - text: Shop
-      url : /shop
-    - text: Contact Me
-      url : /contact
-    - text: Styleguide
-      url: /styleguide
-    - text: Get Started
-      url: /get-started
+    # - text: Gallery
+    #   url: /gallery
+    # - text: Shop
+    #   url : /shop
+    # - text: Contact Me
+    #   url : /contact
+    # - text: Styleguide
+    #   url: /styleguide
+    # - text: Get Started
+    #   url: /get-started
 
 # Edit these details
 
-author_logo: profile.png
-author: John Doe
-author_bio: Web Designer and Developer
-author_email: "johndoe@gmail.com"
-author_location: India
-author_website_url: "http://johndoe.com"
+author_logo: profile.jpeg
+author: Allef Gomes
+author_bio: Desenvolvedor Fullstack
+author_email: "allefgalmeida@gmail.com"
+author_location: Brasil
+author_website_url: ""
 
 author_work_experiences:
-            - company_name: Google
-              company_logo: google.png
-              company_url: https://google.com
-              designation: Software Engineer
-              description: Worked on various Google Products
+            - company_name: Lampp-it Solutions | Tribunal de Justiça
+              company_logo: lamppit.png
+              company_url: https://www.lampp-it.com.br/
+              designation: Desenvolvedor Fullstack
+              description: Trabalho com diversos sistemas escritos em Ruby e React Native
               visibility: true
-            - company_name: Microsoft
-              company_logo: microsoft.png
-              company_url: https://microsoft.com
-              designation: Azure Developer
-              description: Worked on various Azure Cloud Products
+            - company_name: Rubert Tecnologia
+              company_logo: rubert.jpg
+              company_url: https://www.facebook.com/ruberttecnologia/
+              designation: Desenvolvedor Fullstack
+              description: Trabalho com diversos sistemas escritos em Ruby e React Native
+              visibility: true
+            - company_name: 3it Consultoria
+              company_logo: 3it.png
+              company_url: https://3itconsultoria.com.br/
+              designation: Desenvolvedor Fullstack
+              description: Trabalho com diversos sistemas escritos em Ruby, Angular, Ionic e Php
               visibility: true
 
 author_education_details:
@@ -66,16 +72,11 @@ author_project_details:
                 visibility: true
 
 # social links
-twitter_username: johndoe
-github_username:  johndoe
-facebook_username: johndoe
-linkedin_username: johndoe
-behance_username: johndoe
-instagram_username: johndoe
-medium_username: johndoe
-telegram_username: johndoe
-dribbble_username: johndoe
-flickr_username: johndoe
+twitter_username: allef_rb
+github_username:  allefgomes
+linkedin_username: allefgomes
+instagram_username: allefgomess
+telegram_username: allefgomes
 
 #for comments using disqus
 disqus_shortname: sujay-kundu
