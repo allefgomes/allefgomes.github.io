@@ -1,4 +1,4 @@
-# Today I Learned (TIL)
+# My Blog
 
-A collection of concise write-ups on small things I learn day to day across a variety of languages and technologies.
+To see more informations you can go to my [blog](https://allefgomes.github.io/)
 
