@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Documentation on terminal iex
+title: EN - Documentation on terminal iex
 date: 2020-04-30 00:00:00 +0300
 description: Show documentation of a function on iex terminal 
 img: elixir/default.png
