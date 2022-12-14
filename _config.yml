@@ -1,4 +1,4 @@
-title: Prazer, Sou Allef Gomes
+title: Allef Gomes
 description: > # this means to ignore newlines until "baseurl:"
   I am a software developer focusing in backend with ruby, elixir and nodejs but I have expiriencies with Angular2+, ReactJs, React-Native, Ionic and others techs.
 permalink: ':title/'
@@ -9,17 +9,13 @@ site-twitter: #if your site has a twitter account, enter it here
 # Author Settings
 author: Allef Gomes # add your name
 author-img: allef-gomes.jpg # add your photo
-about-author: I'm Allef Gomes, I'm 25 years old, I graduated in Systems to Internet (UNIGRANDE), I like music, rubik's cube and technologies.
-social-twitter: allef_rb
+about-author: Olá! Sou Allef Gomes, graduado em Sistemas para Internet e pós graduado em MBA em Engenharia de Software Ágil. Aqui pretendo escrever sobre meus aprendizados diários.
 social-github: allefgomes
 social-linkedin: allef-gomes
 social-email: allefgalmeida@gmail.com
 
 # Disqus
 discus-identifier: mr-brown # add your discus identifier
-
-# Tracker
-analytics: # Google Analytics
 
 # Build Settings
 markdown: kramdown
