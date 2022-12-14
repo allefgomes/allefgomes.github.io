@@ -22,7 +22,7 @@ A instalação do Rust é pelo rustup. No site oficial do [`rustup`](https://rus
 
 Após isso, pode verificar a instalação rodando o comando `rustc --version` que no meu caso, retornou `rustc 1.65.0 (897e37553 2022-11-02)`.
 
-Além do rustc, também houve a instalação do [`cargo`](https://doc.rust-lang.org/cargo/) que é o gerenciador de pacotes do Rust. Além de ser o gerenciador de dependências, cargo compila os seus pacotes,  gera pacotes distribuídos e também realiza o upload para o [`crates`](crates.io), onde ficam as informações de pacotes para aplicações Rust.
+Além do rustc, também houve a instalação do [`cargo`](https://doc.rust-lang.org/cargo/) que é o gerenciador de pacotes do Rust. Além de ser o gerenciador de dependências, cargo compila os seus pacotes,  gera pacotes distribuídos e também realiza o upload para o [`crates`](https://crates.io), onde ficam as informações de pacotes para aplicações Rust.
 
 ### Hello World
 Presumindo que você esteja em um sistema operacional linux como por exemplo, em um Ubuntu, abra o terminal e crie uma pasta chamada `hello_world_rust` e entre nela. Os comandos para isso são:
