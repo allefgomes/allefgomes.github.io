@@ -3,7 +3,7 @@ layout: post
 title: PT-BR - Adicionando bootstrap 5 no projeto phoenix
 date: 2022-12-20 00:00:00 +0300
 description: Exemplificando como adicionar boostrap 5 em uma aplicação Phoenix
-img: elixir/default.png
+img: elixir/phoenix.png
 tags: [Til, Elixir, Phoenix, Bootstrap]
 ---
 
