@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "PT-BR: Corrigindo flameshot no Ubuntu 22.04"
+title: "PT-BR: Como Resolver o Erro de Permissão no Flameshot no Ubuntu 22.04"
 date: 2024-09-08 00:00:00 +0300
 description: Corrigindo flameshot no Ubuntu 22.04
-img: default.png
+img: ./flameshot_ubuntu.jpg
 tags: [Til, Flameshot, Ubuntu]
 ---
 
