@@ -3,6 +3,7 @@ layout: post
 title: PT-BR - Conceitos da LGPD
 date: 2023-07-05 00:00:00 +0300
 description: Sobre a Lei Geral de Proteção de Dados
+img: lgpd/default.png
 tags: [Til, LGPD]
 ---
 
