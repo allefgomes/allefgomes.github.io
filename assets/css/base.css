@@ -11,7 +11,7 @@
   --cyan:#2DD4F5;          /* secondary accent */
   --live:#3BE8A8;          /* status: live / passing */
   --grad:linear-gradient(100deg,var(--indigo) 0%,var(--blue) 45%,var(--cyan) 100%);
-  --display:'Syne','Arial Black',system-ui,sans-serif;
+  --display:'Space Grotesk',system-ui,sans-serif;
   --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
   --gutter:clamp(16px,4vw,56px);
@@ -43,7 +43,7 @@ main,header,footer{position:relative;z-index:1}
 .nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);background:rgba(13,13,13,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
 .mark{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 15px/1 var(--display);letter-spacing:.02em}
-.mark i{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font:800 12px/1 var(--display);letter-spacing:-.02em;font-style:normal;background:var(--grad);color:#0D0D0D}
+.mark i{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font:700 12px/1 var(--display);letter-spacing:-.02em;font-style:normal;background:var(--grad);color:#0D0D0D}
 .nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0}
 .nav ul a{text-decoration:none;font:500 13px/1 var(--body);color:var(--muted);transition:color .2s}
 .nav ul a:hover,.nav ul a[aria-current]{color:var(--text)}
@@ -74,7 +74,7 @@ main,header,footer{position:relative;z-index:1}
 .kicker::after{content:"";width:48px;height:1px;background:var(--line)}
 .kicker a{text-decoration:none;transition:color .2s}
 .kicker a:hover{color:var(--text)}
-.h2{margin:0;font:800 clamp(40px,7vw,104px)/.95 var(--display);letter-spacing:-.035em;text-wrap:balance}
+.h2{margin:0;font:700 clamp(40px,7vw,104px)/.95 var(--display);letter-spacing:-.035em;text-wrap:balance}
 .h2 .line{overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
 .sec-head p{margin:0;max-width:52ch;font-size:clamp(16px,1.35vw,19px);color:#BDBAB4}
 

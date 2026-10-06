@@ -40,7 +40,7 @@ a.tag:hover{border-color:rgba(45,212,245,.6);color:var(--text)}
 
 /* ---------- POST ---------- */
 .post-head{max-width:1080px}
-.post-title{margin:0;font:800 clamp(34px,5vw,72px)/1 var(--display);letter-spacing:-.04em;text-wrap:balance}
+.post-title{margin:0;font:700 clamp(34px,5vw,72px)/1 var(--display);letter-spacing:-.04em;text-wrap:balance}
 .post-title .line{overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
 .post-desc{margin:28px 0 0;max-width:56ch;font-size:clamp(17px,1.4vw,20px);color:#BDBAB4}
 .post-meta{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;margin-top:32px}
@@ -55,7 +55,7 @@ a.tag:hover{border-color:rgba(45,212,245,.6);color:var(--text)}
 .prose{max-width:var(--prose);margin:clamp(56px,7vw,96px) auto 0;font-size:clamp(16px,1.15vw,18px);line-height:1.8;color:#D9D5CF}
 .prose>*{margin:0 0 1.25em}
 .prose h2,.prose h3,.prose h4{color:var(--text);font-family:var(--display);letter-spacing:-.02em;line-height:1.15;margin:2.2em 0 .7em;scroll-margin-top:90px}
-.prose h2{font-size:clamp(28px,2.8vw,38px);font-weight:800;letter-spacing:-.03em}
+.prose h2{font-size:clamp(28px,2.8vw,38px);font-weight:700;letter-spacing:-.03em}
 .prose h3{font-size:clamp(22px,2vw,27px);font-weight:700}
 .prose h4{font-size:19px;font-weight:700}
 .prose h2::before{content:"";display:block;width:48px;height:2px;margin-bottom:22px;background:var(--grad)}
