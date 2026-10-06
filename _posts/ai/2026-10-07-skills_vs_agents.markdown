@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Skills vs Agents, explained like you're five"
-date: 2026-10-06 00:00:00 -0300
+date: 2026-10-07 09:00:00 -0300
 description: The simplest possible explanation of the difference between skills and agents in AI assistants like Claude Code
 img: software.jpg
 tags: [AI, Claude, Agents, Skills]
