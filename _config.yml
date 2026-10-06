@@ -40,4 +40,4 @@ defaults:
     values:
       lang: pt
 
-exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
+exclude: ["README.md"]
