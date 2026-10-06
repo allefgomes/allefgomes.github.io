@@ -65,25 +65,18 @@
     <meta name="twitter:image:src" content="{{ site.url }}{{ site.baseurl }}/assets/img/{{ site.author-img }}">
   {% endif %}
 
-	<meta name="description" content="{{ page.description }}">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta property="og:image" content="">
+	<meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description | strip }}{% endif %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<link rel="shortcut icon" href="{{ "/assets/img/favicon/favicon.ico" | prepend: site.baseurl }}" type="image/x-icon">
 	<link rel="apple-touch-icon" href="{{ "/assets/img/favicon/apple-touch-icon.png" | prepend: site.baseurl }}">
-	<link rel="apple-touch-icon" sizes="72x72" href="{{ "/assets/img/favicon/apple-touch-icon-72x72.png" | prepend: site.baseurl }}">
-	<link rel="apple-touch-icon" sizes="144x144" href="{{ "/assets/img/favicon/apple-touch-icon-144x144.png" | prepend: site.baseurl }}">
-	<!-- Chrome, Firefox OS and Opera -->
-	<meta name="theme-color" content="#263959">
-	<!-- Windows Phone -->
-	<meta name="msapplication-navbutton-color" content="#263959">
-	<!-- iOS Safari -->
-	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
-	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="{{ "/assets/fonts/font-awesome/css/font-awesome.min.css" | prepend: site.baseurl }}">
-	<!-- Styles -->
-	<link rel="stylesheet" href="{{ "/assets/css/main.css" | prepend: site.baseurl }}">
+	<meta name="theme-color" content="#0D0D0D">
+	<!-- Same fonts and motion libraries as the portfolio -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js" defer></script>
+	<script src="{{ "/assets/js/blog.js" | prepend: site.baseurl }}" defer></script>
+	<link rel="stylesheet" href="{{ "/assets/css/blog.css" | prepend: site.baseurl }}">
 </head>

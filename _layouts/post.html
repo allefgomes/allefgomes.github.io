@@ -1,34 +1,44 @@
 ---
-layout: main
+layout: default
 ---
-<article class="article-page">
-  <div class="page-content">
-    {% if page.img %}
-    <div class="page-cover-image">
-      <figure>
-        <img class="page-image" src={{ "/assets/img/" | prepend: site.baseurl | append : page.img}} alt="{{page.title}}">
-        {% if page.fig-caption %}
-          <figcaption>{{page.fig-caption}}</figcaption>
+{% capture words %}{{ content | number_of_words }}{% endcapture %}
+<article class="page">
+  <div class="wrap">
+    <header class="post-head">
+      <p class="kicker"><a href="{{ site.baseurl }}/blog/"><b>←</b> Blog</a></p>
+      <h1 class="post-title split will-reveal">{{ page.title }}</h1>
+      {% if page.description %}<p class="post-desc will-reveal fade">{{ page.description }}</p>{% endif %}
+      <div class="post-meta will-reveal">
+        <span class="meta"><b>{{ page.date | date: '%Y.%m.%d' }}</b>{{ words | plus: 250 | divided_by: 250 }} min read</span>
+        {% if page.tags.size > 0 %}
+        <ul class="tags">{% for tag in page.tags %}<li><a class="tag" href="{{ site.baseurl }}/tags/#{{ tag | cgi_escape }}"># {{ tag }}</a></li>{% endfor %}</ul>
         {% endif %}
-      </figure>
-    </div> <!-- End Page Cover Image -->
-    {% else %}
-    {% endif %}
-    <div class="wrap-content">
-      <header class="header-page">
-        <h1 class="page-title">{{page.title}}</h1>
-        <div class="page-date"><span>{{page.date | date: '%Y, %b %d'}}&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
-      </header>
-      {{content | markdownify}}
-      <div class="page-footer">
-        <div class="page-share">
-        </div>
-        <div class="page-tag">
-          {% for tag in page.tags %}
-            <a href="{{site.baseurl}}/tags#{{tag}}" class="tag">&#35; {{ tag }}</a>
-          {% endfor %}
-        </div>
       </div>
-    </div> <!-- End Wrap Content -->
-  </div> <!-- End Page Content -->
-</article> <!-- End Article Page -->
+    </header>
+
+    {% if page.img %}
+    <figure class="cover will-reveal">
+      <div class="cover-bar"><i></i><i></i><i></i><span>{{ site.domain | default: "allefgomes.com" }}{{ page.url }}</span></div>
+      <div class="cover-img">
+        <img src="{{ "/assets/img/" | prepend: site.baseurl | append: page.img }}" alt="{{ page.title }}">
+        <div class="reveal-mask"></div>
+      </div>
+      {% if page.fig-caption %}<figcaption>{{ page.fig-caption }}</figcaption>{% endif %}
+    </figure>
+    {% endif %}
+
+    <div class="prose">
+      {{ content }}
+    </div>
+
+    <footer class="post-foot">
+      {% if page.previous or page.next %}
+      <nav class="post-nav" aria-label="More posts">
+        {% if page.previous %}<a class="card prev will-reveal" href="{{ site.baseurl }}{{ page.previous.url }}"><small>← Older</small><b>{{ page.previous.title }}</b></a>{% endif %}
+        {% if page.next %}<a class="card next will-reveal" href="{{ site.baseurl }}{{ page.next.url }}"><small>Newer →</small><b>{{ page.next.title }}</b></a>{% endif %}
+      </nav>
+      {% endif %}
+      <div><a class="btn magnetic" href="{{ site.baseurl }}/blog/">← All posts</a></div>
+    </footer>
+  </div>
+</article>

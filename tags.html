@@ -6,23 +6,24 @@ permalink: /tags/
 {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
 {% assign tag_words = site_tags | split:',' | sort %}
 
-<section class="blog-tags">
-  <h1>Tags in Blog</h1>
-  <ul class="tags">
-<!--  cycles through tag list and creates header row of all tags used in site with accompanying per-tag counts...-->
+<div class="sec-head">
+  <div><p class="kicker"><b>03</b> Tags</p><h1 class="h2 split will-reveal">Browse by topic.</h1></div>
+  <p class="will-reveal fade">Every tag used on the blog, with the posts filed under it.</p>
+</div>
+
+<ul class="tags tag-cloud will-reveal">
   {% for this_word in tag_words %}
-    <li ><a href="#{{ this_word | cgi_escape }}" class="tag">{{ this_word }} <span>({{ site.tags[this_word].size }})</span></a></li>
+  <li><a href="#{{ this_word | cgi_escape }}" class="tag">{{ this_word }} <span>{{ site.tags[this_word].size }}</span></a></li>
   {% endfor %}
-  </ul>
-<!--cycles through tag list and creates subheader for each tag name...-->
-  {% for this_word in tag_words %}
-  <h2 id="{{ this_word | cgi_escape }}">{{ this_word }}</h2>
-<!--  lists all posts corresponding to specific tag...-->
+</ul>
+
+{% for this_word in tag_words %}
+<section class="tag-group will-reveal" id="{{ this_word | cgi_escape }}">
+  <h2>{{ this_word }}<span>{{ site.tags[this_word].size }}</span></h2>
+  <ul>
     {% for post in site.tags[this_word] %}{% if post.title != null %}
-    <div class="tag-list">
-        <span><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></span>
-        <small><span>| {{ post.date | date_to_string }}</span></small>
-    </div>
+    <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}<span>{{ post.date | date: '%Y.%m.%d' }}</span></a></li>
     {% endif %}{% endfor %}
-  {% endfor %}
+  </ul>
 </section>
+{% endfor %}

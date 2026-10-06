@@ -1,15 +1,11 @@
-<div class="container">
-  <nav class="pagination" role="pagination">
-    <ul>
-      {% if paginator.previous_page %}
-        <p><a class="newer-posts" href="{{ site.baseurl }}{{ paginator.previous_page_path }}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></p>
-      {% endif %}
-
-      <p><span class="page-number">Page {{paginator.page}} of {{paginator.total_pages}}</span></p>
-
-      {% if paginator.next_page %}
-      <p><a class="older-posts" href="{{ site.baseurl }}{{ paginator.next_page_path }}"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></p>
-      {% endif %}
-    </ul>
-  </nav>
-</div>
+{% if paginator.total_pages > 1 %}
+<nav class="pagination" aria-label="Pagination">
+  {% if paginator.previous_page %}
+  <a class="btn sm magnetic" href="{{ site.baseurl }}{{ paginator.previous_page_path }}">← Newer</a>
+  {% endif %}
+  <span>Page {{ paginator.page }} / {{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+  <a class="btn sm magnetic" href="{{ site.baseurl }}{{ paginator.next_page_path }}">Older →</a>
+  {% endif %}
+</nav>
+{% endif %}
