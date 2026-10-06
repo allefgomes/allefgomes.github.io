@@ -1,53 +1,53 @@
 ---
 layout: post
-title: PT-BR - A linguagem Rust
+title: "The Rust language"
 date: 2022-12-14 00:00:00 +0000
-description: Uma introdução a linguagem rust
+description: An introduction to the Rust language
 img: rust/rust-lang.jpeg
-tags: [Functional Programming, Rust, Programação Funcional]
+tags: [Rust, Functional Programming]
 ---
 
-Olá!
+Hi!
 
-Tenho aprendido `Rust` para poder trazer performance para alguns problemas que tenho enfrentado no trabalho. Então, este é o início de algumas anotações que irei fazer para entender e utilizar rust aqui na empresa.
+I've been learning `Rust` to bring more performance to some problems I've been facing at work. So this is the start of a series of notes I'll be writing to understand and use Rust here at the company.
 
 ### Rust
-A linguagem rust tem foco em eficiência e confiabilidade.
-Rust traz um desempenho extremamente rápido, gerencia memória eficientemente, seu sistema de tipos e modelo de _ownership_ garantem segurança de memória e de concorrência. Além disso, possui uma ótima documentação, compilador amigável com mensagens de erros úteis e ferramental de primeira qualidade.
+Rust focuses on efficiency and reliability.
+It's extremely fast, manages memory efficiently, and its type system and _ownership_ model guarantee memory safety and thread safety. On top of that, it has great documentation, a friendly compiler with useful error messages, and first-class tooling.
 
-Rust traz uma forma interessante de apresentar seus fundamentos que é por meio do ["o livro"](https://doc.rust-lang.org/book/) que apresenta uma visão geral da linguagem a partir de princípios fundamentais.
+Rust has an interesting way of teaching its fundamentals: ["the book"](https://doc.rust-lang.org/book/), which gives an overview of the language from first principles.
 
-### Instalação
-A instalação do Rust é pelo rustup. No site oficial do [`rustup`](https://rustup.rs/) você pode ver como instalar no seu sistema operacional. No linux foi bem simples. Bastou rodar o comando `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh` no terminal.
+### Installation
+Rust is installed through rustup. On the official [`rustup`](https://rustup.rs/) site you can see how to install it on your operating system. On Linux it was really simple. I just ran `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh` in the terminal.
 
-Após isso, pode verificar a instalação rodando o comando `rustc --version` que no meu caso, retornou `rustc 1.65.0 (897e37553 2022-11-02)`.
+After that, you can check the installation by running `rustc --version`, which in my case returned `rustc 1.65.0 (897e37553 2022-11-02)`.
 
-Além do rustc, também houve a instalação do [`cargo`](https://doc.rust-lang.org/cargo/) que é o gerenciador de pacotes do Rust. Além de ser o gerenciador de dependências, cargo compila os seus pacotes,  gera pacotes distribuídos e também realiza o upload para o [`crates`](https://crates.io), onde ficam as informações de pacotes para aplicações Rust.
+Besides rustc, it also installed [`cargo`](https://doc.rust-lang.org/cargo/), Rust's package manager. Beyond managing dependencies, cargo compiles your packages, builds distributable packages and uploads them to [`crates.io`](https://crates.io), the registry of packages for Rust applications.
 
 ### Hello World
-Presumindo que você esteja em um sistema operacional linux como por exemplo, em um Ubuntu, abra o terminal e crie uma pasta chamada `hello_world_rust` e entre nela. Os comandos para isso são:
+Assuming you're on a Linux system such as Ubuntu, open the terminal, create a folder called `hello_world_rust` and enter it. The commands are:
 ```bash
 $ mkdir hello_world_rust
 $ cd hello_world_rust
-``` 
-Para a edição dos códigos, aconselho você utilizar o vscode. Então, abra o vscode na pasta do projeto. Ou seja, se você tiver entrado na pasta `hello_world_rust`, basta digitar no terminal `code .` e o vscode será aberto na pasta atual.
+```
+For editing code, I recommend VS Code. Open VS Code in the project folder: if you're inside `hello_world_rust`, just type `code .` in the terminal and VS Code will open in the current folder.
 
-Crie um arquivo chamado `main.rs` e adicione a função main, pois ela é sempre o primeiro código que será executádo em um programa Rust. Deixe seu `main.rs` igual ao código abaixo:
+Create a file called `main.rs` and add the main function, since it's always the first code that runs in a Rust program. Make your `main.rs` look like this:
 ```rust
 fn main() {
     println!("Hello, world!");
 }
 ```
-Para poder reproduzir o código, utilize os comandos:
+To run the code, use these commands:
 ```bash
 $ rustc main.rs
 $ ./main
 Hello, world!
 ```
-O comando `rustc main.rs` compilou o código contigo no arquivo `main.rs` e gerou um executável chamado `main`.
-Com o comando `./main` você irá executar o programa compilado e ele irá retornar o "Hello, world!".
+The `rustc main.rs` command compiled the code in `main.rs` and produced an executable called `main`.
+With `./main` you run the compiled program, and it prints "Hello, world!".
 
-### Conclusão
-Por hoje é isso. Entendemos o que é Rust, aprendemos a instalar e criamos nosso primeiro programa. Em breve venho com mais!
+### Conclusion
+That's it for today. We learned what Rust is, how to install it, and wrote our first program. More soon!
 
-Deus abençoe!
+God bless!

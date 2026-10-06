@@ -1,9 +1,9 @@
 title: Allef Gomes
 description: > # this means to ignore newlines until "baseurl:"
   I am a software developer focusing in backend with ruby, elixir and nodejs but I have expiriencies with Angular2+, ReactJs, React-Native, Ionic and others techs.
-permalink: ':title/'
+permalink: /:categories/:title/  # English posts live in _posts/ -> /:title/, Portuguese in pt/_posts/ -> /pt/:title/
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://allefgomes.com"
 site-twitter: #if your site has a twitter account, enter it here
 
 # Author Settings
@@ -21,10 +21,23 @@ discus-identifier: mr-brown # add your discus identifier
 markdown: kramdown
 plugins:
   - jekyll-sitemap
-  - jekyll-paginate
   - jemoji
 
-paginate: 10
-paginate_path: "/blog/page/:num"
+# Languages: English is the default; anything under pt/ (pages and pt/_posts) is Portuguese.
+# UI strings live in _data/i18n.yml.
+defaults:
+  - scope:
+      path: ""
+    values:
+      lang: en
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+  - scope:
+      path: "pt"
+    values:
+      lang: pt
 
 exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]

@@ -1,10 +1,10 @@
 ---
 layout: post
-title: EN - How to Host a Website on a Raspberry Pi Using Cloudflare
+title: "How to Host a Website on a Raspberry Pi Using Cloudflare"
 date: 2025-02-26 23:45:00 +0000
 description: How to set up a web site on raspberry pi and cloudflare
 img: servers/raspberry_and_cloudflare.jpg
-tags: [Raspberry Pi, Cloudflare, EN]
+tags: [Raspberry Pi, Cloudflare]
 ---
 
 After years of learning about software engineering, I finally bought my first Raspberry Pi! Today, I'm diving into the process of exposing applications to the world.

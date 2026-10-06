@@ -1,0 +1,74 @@
+# UI strings per language. Pages pick a set via `lang` (see defaults in _config.yml).
+en:
+  html_lang: en
+  locale: en-US
+  label: English
+  base: ""
+  description: Allef Gomes — Senior Software Engineer (Full-Stack). Ruby on Rails, Elixir/Phoenix, React, real-time systems in production.
+  role: Senior Software Engineer · Full-Stack · Brazil
+  switch_label: Language
+  copied: Copied ✓
+  nav:
+    stack: Stack
+    experience: Experience
+    projects: Projects
+    contact: Contact
+    portfolio: Portfolio
+    blog: Blog
+    tags: Tags
+    cta: Get in touch
+    top: back to top
+  blog:
+    kicker: Blog
+    title: Notes from production.
+    intro: What I learn day to day — Elixir, Rails, Docker, servers and the occasional talk.
+    read_post: Read post
+    min_read: min read
+    empty: No posts yet.
+  post:
+    back: Blog
+    older: ← Older
+    newer: Newer →
+    all: ← All posts
+    more: More posts
+  tags:
+    kicker: Tags
+    title: Browse by topic.
+    intro: Every tag used on the blog, with the posts filed under it.
+
+pt:
+  html_lang: pt-BR
+  locale: pt-BR
+  label: Português
+  base: /pt
+  description: Allef Gomes — Engenheiro de Software Sênior (Full-Stack). Ruby on Rails, Elixir/Phoenix, React e sistemas em tempo real em produção.
+  role: Engenheiro de Software Sênior · Full-Stack · Brasil
+  switch_label: Idioma
+  copied: Copiado ✓
+  nav:
+    stack: Stack
+    experience: Experiência
+    projects: Projetos
+    contact: Contato
+    portfolio: Portfólio
+    blog: Blog
+    tags: Tags
+    cta: Fale comigo
+    top: voltar ao topo
+  blog:
+    kicker: Blog
+    title: Notas de produção.
+    intro: O que aprendo no dia a dia — Elixir, Rails, Docker, servidores e uma palestra de vez em quando.
+    read_post: Ler post
+    min_read: min de leitura
+    empty: Nenhum post ainda.
+  post:
+    back: Blog
+    older: ← Anterior
+    newer: Próximo →
+    all: ← Todos os posts
+    more: Mais posts
+  tags:
+    kicker: Tags
+    title: Navegue por tema.
+    intro: Todas as tags usadas no blog, com os posts de cada uma.

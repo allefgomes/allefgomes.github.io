@@ -1,0 +1,18 @@
+---
+layout: post
+title: "GURU-CE 35"
+date: 2022-11-09 00:00:00 +0000
+description: Guru-CE 35 - Palestra sobre Hotwire
+img: talks/guru-ce-35.jpeg
+tags: [Palestras, Guru-CE, Ruby, Hotwire, Rails]
+---
+
+No sábado (09/11/2024), tive a honra de participar do 35º GURU-CE onde tive a oportunidade de compartilhar um pouco sobre #rails e #hotwire. Foi uma experiência incrível, não apenas por poder falar sobre tecnologias que curto demais, mas também por conhecer novas pessoas e expandir meu aprendizado sobre o ecossistema Ruby. 🙌
+
+Agradeço imensamente à organização do GURU-CE por proporcionar um evento tão especial e bem estruturado. 🎉
+
+Também quero parabenizar os demais palestrantes — [Arthur Molina](https://www.linkedin.com/in/arthurmolina), [Frankyston Lins Nogueira](https://www.linkedin.com/in/frankyston) e [Edigleysson Silva](https://www.linkedin.com/in/edigleyssonsilva). — que nos presentearam com palestras riquíssimas e inspiradoras. 👏
+
+Se você tiver interesse em conhecer mais sobre o tema que apresentei, os slides da minha palestra estão disponíveis [aqui](https://lnkd.in/drXkYNu8).
+
+Obrigado a todos que tornaram este evento tão memorável! Até a próxima! 🚀

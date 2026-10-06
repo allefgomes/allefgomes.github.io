@@ -1,0 +1,21 @@
+{%- comment -%}
+  Sets: lang, t (UI strings), base ("" or "/pt"), other_lang, ot, alt_url (same page in the other language),
+  alt_exists (false when a post has no translation; alt_url then points at that language's blog).
+  English and Portuguese versions of a page share a URL apart from the /pt prefix.
+{%- endcomment -%}
+{%- assign lang = page.lang | default: 'en' -%}
+{%- assign t = site.data.i18n[lang] -%}
+{%- assign base = t.base -%}
+{%- if lang == 'pt' -%}{%- assign other_lang = 'en' -%}{%- else -%}{%- assign other_lang = 'pt' -%}{%- endif -%}
+{%- assign ot = site.data.i18n[other_lang] -%}
+{%- if lang == 'pt' -%}
+  {%- assign alt_url = page.url | remove_first: '/pt' -%}
+{%- else -%}
+  {%- assign alt_url = '/pt' | append: page.url -%}
+{%- endif -%}
+{%- if alt_url == '' -%}{%- assign alt_url = '/' -%}{%- endif -%}
+{%- assign alt_exists = true -%}
+{%- if page.collection == 'posts' -%}
+  {%- assign alt_post = site.posts | where: 'url', alt_url | first -%}
+  {%- unless alt_post -%}{%- assign alt_exists = false -%}{%- assign alt_url = ot.base | append: '/blog/' -%}{%- endunless -%}
+{%- endif -%}

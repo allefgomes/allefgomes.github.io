@@ -1,25 +1,25 @@
 ---
 layout: post
-title: "Documentation on terminal iex"
+title: "Documentação no terminal iex"
 date: 2020-04-30 00:00:00 +0300
-description: Show documentation of a function on iex terminal 
+description: Mostrando a documentação de uma função no terminal iex
 img: elixir/default.png
-tags: [TIL, Functional Programming, Elixir, Software]
+tags: [TIL, Programação Funcional, Elixir, Software]
 ---
 
-To enter on a elixir terminal you can run:
+Para entrar em um terminal Elixir, você pode rodar:
 
 ```bash
   $ iex
 ```
 
-Then, to show documentation of a specific function you can use _h_ like that example:
+Depois, para mostrar a documentação de uma função específica, você pode usar o _h_ como neste exemplo:
 
 
 ```bash
   $ h round/1
 
-  # =>                              def round(number)                                
+  # =>                              def round(number)
 
   # => @spec round(number()) :: integer()
 
@@ -34,21 +34,21 @@ Then, to show documentation of a specific function you can use _h_ like that exa
 
       iex> round(5.6)
       # => 6
-      
+
       iex> round(5.2)
       # => 5
-      
+
       iex> round(-9.9)
       # => -10
-      
+
       iex> round(-9)
       # => -9
-      
+
       iex> round(2.5)
       # => 3
-      
+
       iex> round(-2.5)
       # => -3
 
 ```
-In this case, _round/1_ is a function called *round* that recieves an argument/arity.
+Neste caso, _round/1_ é uma função chamada *round* que recebe um argumento (aridade 1).

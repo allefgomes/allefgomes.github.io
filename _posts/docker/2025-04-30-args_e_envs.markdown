@@ -1,40 +1,40 @@
 ---
 layout: post
-title: "PT-BR - Um aprendizado importante sobre Docker Compose: build.args vs env_file"
+title: "An important lesson about Docker Compose: build.args vs env_file"
 date: 2025-04-30 00:00:00 +0300
-description: Quando usar o build.args e o env_file
+description: When to use build.args and when to use env_file
 img: docker/args_e_envs.png
-tags: [Til, Docker, Docker Compose]
+tags: [TIL, Docker, Docker Compose]
 ---
-# 📚 Um aprendizado importante sobre Docker Compose: `build.args` vs `env_file` 🚀
+# 📚 An important lesson about Docker Compose: `build.args` vs `env_file` 🚀
 
-Hoje enquanto preparava o ambiente de **staging** de uma aplicação, me deparei com um comportamento do **Docker Compose** que parecia estranho:
+Today, while setting up the **staging** environment for an application, I ran into a **Docker Compose** behavior that looked strange:
 
-- Eu tinha um `.env.staging` com todas as variáveis certinhas.
-- No `docker-compose.yml`, já tinha configurado `env_file: .env.staging`.
-- Mas, durante o **build da imagem**, o Rails reclamava que o `SECRET_KEY_BASE` não existia. 😵‍💫
+- I had a `.env.staging` with every variable set correctly.
+- In `docker-compose.yml`, I had already configured `env_file: .env.staging`.
+- But during the **image build**, Rails complained that `SECRET_KEY_BASE` didn't exist. 😵‍💫
 
-Fiquei alguns minutos investigando... até perceber algo que agora parece óbvio (mas que muita gente também se confunde):
+I spent a few minutes digging... until I realized something that now seems obvious (but that trips up a lot of people):
 
-👉 **O `env_file` é lido apenas no `docker-compose up`, não no `build`!**
+👉 **`env_file` is only read on `docker-compose up`, not on `build`!**
 
-Durante o `docker-compose build`, o Compose **não** lê o `env_file`.  
-Se queremos passar variáveis durante o build (por exemplo para compilar os assets ou configurar alguma build customizada), **precisamos usar `build.args` explicitamente**.
+During `docker-compose build`, Compose does **not** read the `env_file`.
+If you need variables during the build (for example, to precompile assets or configure a custom build), **you have to pass them explicitly with `build.args`**.
 
-💡 **E mais:** o `.env` padrão (ou `.env.staging`, se usado com `--env-file`) é lido para preencher essas variáveis **só se elas forem mapeadas no `build.args`**.
-
----
-
-## 🎯 Em resumo:
-
-| Quando | Variáveis disponíveis |
-|--------|------------------------|
-| `docker-compose build` | Usar `args:` + `--env-file` (ou exportar no terminal) |
-| `docker-compose up` | Usar `env_file:` (funciona perfeitamente) |
+💡 **And also:** the default `.env` (or `.env.staging`, when used with `--env-file`) is read to fill in those variables **only if they're mapped in `build.args`**.
 
 ---
 
-## ⚙️ Como ficou no meu projeto:
+## 🎯 In short:
+
+| When | Available variables |
+|------|---------------------|
+| `docker-compose build` | Use `args:` + `--env-file` (or export them in the shell) |
+| `docker-compose up` | Use `env_file:` (works perfectly) |
+
+---
+
+## ⚙️ How my project ended up:
 
 `.env.staging`:
 ```env
@@ -55,12 +55,12 @@ env_file:
   - .env.staging
 ```
 
-## E na hora de rodar:
+## And when running it:
 ```bash
 docker-compose --env-file .env.staging build
 docker-compose --env-file .env.staging up
 ```
 
-🧠 Pequenos detalhes como esse fazem toda a diferença quando configuramos ambientes de staging e produção com confiabilidade e previsibilidade.
+🧠 Small details like this make all the difference when setting up staging and production environments you can rely on and predict.
 
-#docker #devops #programação #rails #dockercompose #backend #aprendizado
+#docker #devops #programming #rails #dockercompose #backend #learning

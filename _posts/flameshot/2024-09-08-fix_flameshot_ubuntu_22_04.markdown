@@ -1,14 +1,14 @@
 ---
 layout: post
-title: "PT-BR: Como Resolver o Erro de Permissão no Flameshot no Ubuntu 22.04"
+title: "How to fix Flameshot's permission error on Ubuntu 22.04"
 date: 2024-09-08 00:00:00 +0300
-description: Corrigindo flameshot no Ubuntu 22.04
+description: Fixing Flameshot on Ubuntu 22.04
 img: ./flameshot_ubuntu.jpg
-tags: [Til, Flameshot, Ubuntu]
+tags: [TIL, Flameshot, Ubuntu]
 ---
 
-Após instalar o flameshot no Ubuntu 22.04, ao rodar o CLI `flameshot gui` acontecia o erro de não permissão.
+After installing Flameshot on Ubuntu 22.04, running the `flameshot gui` command failed with a permission error.
 
-Solução foi abrir o arquivo `/etc/gdm3/custom.conf` e remover o comentário da linha `#WaylandEnable=false` que irá forçar o login do Ubuntu com Xorg.
+The fix was to open `/etc/gdm3/custom.conf` and uncomment the line `#WaylandEnable=false`, which forces Ubuntu to log in with Xorg instead of Wayland.
 
-Após isso, só reiniciar a máquina. 
+After that, just restart the machine.

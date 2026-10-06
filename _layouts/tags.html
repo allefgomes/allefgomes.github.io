@@ -1,0 +1,32 @@
+---
+layout: main
+---
+{%- include lang.html -%}
+{%- assign posts = site.posts | where: 'lang', lang -%}
+{%- assign tag_words = '' | split: '' -%}
+{%- for post in posts -%}{%- assign tag_words = tag_words | concat: post.tags -%}{%- endfor -%}
+{%- assign tag_words = tag_words | uniq | sort_natural -%}
+
+<div class="sec-head">
+  <div><p class="kicker"><b>03</b> {{ t.tags.kicker }}</p><h1 class="h2 split will-reveal">{{ t.tags.title }}</h1></div>
+  <p class="will-reveal fade">{{ t.tags.intro }}</p>
+</div>
+
+<ul class="tags tag-cloud will-reveal">
+  {%- for tag in tag_words %}
+  {%- assign tagged = posts | where_exp: 'p', 'p.tags contains tag' %}
+  <li><a href="#{{ tag | slugify }}" class="tag">{{ tag }} <span>{{ tagged.size }}</span></a></li>
+  {%- endfor %}
+</ul>
+
+{%- for tag in tag_words %}
+{%- assign tagged = posts | where_exp: 'p', 'p.tags contains tag' %}
+<section class="tag-group will-reveal" id="{{ tag | slugify }}">
+  <h2>{{ tag }}<span>{{ tagged.size }}</span></h2>
+  <ul>
+    {%- for post in tagged %}
+    <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}<span>{{ post.date | date: '%Y.%m.%d' }}</span></a></li>
+    {%- endfor %}
+  </ul>
+</section>
+{%- endfor %}

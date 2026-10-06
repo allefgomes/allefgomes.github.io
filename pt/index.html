@@ -5,14 +5,14 @@ layout: portfolio
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow will-reveal"><span class="dot" aria-hidden="true"></span><span>Senior Software Engineer · Full-Stack · Brazil</span></p>
+      <p class="eyebrow will-reveal"><span class="dot" aria-hidden="true"></span><span>Engenheiro de Software Sênior · Full-Stack · Brasil</span></p>
       <p class="hero-name will-reveal">Allef Gomes</p>
-      <h1 class="hero-title will-reveal" id="heroTitle" data-hl="Real-time|production">Real-time systems, built to stay in production.</h1>
-      <p class="hero-sub will-reveal">~9 years designing, building and running production web systems end to end. <strong>Ruby on Rails, Elixir/Phoenix and React</strong>, backed by CI/CD and automated tests so releases stay boring.</p>
+      <h1 class="hero-title will-reveal" id="heroTitle" data-hl="tempo|real|produção">Sistemas em tempo real, feitos para ficar em produção.</h1>
+      <p class="hero-sub will-reveal">~9 anos projetando, construindo e operando sistemas web em produção de ponta a ponta. <strong>Ruby on Rails, Elixir/Phoenix e React</strong>, com CI/CD e testes automatizados para que os deploys sejam tranquilos.</p>
       <div class="hero-cta will-reveal">
-        <a class="btn solid magnetic" href="#projects">See the work
+        <a class="btn solid magnetic" href="#projects">Ver projetos
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn magnetic" href="#contact">Get in touch</a>
+        <a class="btn magnetic" href="#contact">Fale comigo</a>
       </div>
       <div class="chips">
         <span class="chip will-reveal" style="--c:var(--blue)"><i></i>Ruby on Rails</span>
@@ -22,7 +22,7 @@ layout: portfolio
       </div>
     </div>
 
-    <div class="term will-reveal" id="term" aria-label="Deploy log illustration">
+    <div class="term will-reveal" id="term" aria-label="Ilustração de log de deploy">
       <div class="term-bar"><i></i><i></i><i></i><span>~/prod — deploy</span></div>
       <div class="term-body">
         <div class="tl-line"><span><span class="p">$</span> git push origin main</span></div>
@@ -31,7 +31,7 @@ layout: portfolio
         <div class="tl-line"><span>▸ docker build</span><span class="ok">done ✓</span></div>
         <div class="tl-line"><span>▸ jenkins pipeline</span><span class="ok">green ✓</span></div>
         <div class="tl-line"><span>▸ deploy production</span><span class="ok">live ✓</span></div>
-        <div class="tl-line live"><span><b>●</b> video platform</span><span><span id="termCount">6,000</span>+ meetings / month</span></div>
+        <div class="tl-line live"><span><b>●</b> plataforma de vídeo</span><span><span id="termCount">6.000</span>+ reuniões / mês</span></div>
         <div class="tl-line"><span><span class="p">$</span> <span class="caret"></span></span></div>
       </div>
     </div>
@@ -49,20 +49,20 @@ layout: portfolio
 <section id="stack">
   <div class="wrap">
     <div class="sec-head">
-      <div><p class="kicker"><b>01</b> Stack & skills</p><h2 class="h2 split">Tools I ship with.</h2></div>
-      <p class="will-reveal fade">Two ecosystems I know deeply, plus the delivery practices that keep them healthy in production.</p>
+      <div><p class="kicker"><b>01</b> Stack e habilidades</p><h2 class="h2 split">Com o que eu entrego.</h2></div>
+      <p class="will-reveal fade">Dois ecossistemas que conheço a fundo, mais as práticas de entrega que os mantêm saudáveis em produção.</p>
     </div>
 
     <div class="bento">
       <article class="card c-7 will-reveal">
         <div class="card-top">
-          <div><p class="card-label">Primary ecosystem</p><h3>Ruby on Rails</h3></div>
+          <div><p class="card-label">Ecossistema principal</p><h3>Ruby on Rails</h3></div>
           <span class="glyph" style="color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 3h10l4 6-9 12L3 9z"/><path d="M3 9h18M12 21L8 9l4-6 4 6z"/></svg></span>
         </div>
         <div class="badges">
           <span class="badge k">Ruby on Rails</span><span class="badge k">Hotwire</span><span class="badge k">Stimulus</span><span class="badge k">ActiveRecord</span><span class="badge">REST APIs</span>
         </div>
-        <pre class="code"><span class="c"># Hotwire: server-rendered, real-time UI</span>
+        <pre class="code"><span class="c"># Hotwire: UI renderizada no servidor, em tempo real</span>
 <span class="k">class</span> <span class="f">Meeting</span> &lt; ApplicationRecord
 broadcasts_to <span class="s">->(m) { [m.room, :participants] }</span>
 <span class="k">end</span></pre>
@@ -70,51 +70,51 @@ broadcasts_to <span class="s">->(m) { [m.room, :participants] }</span>
 
       <article class="card c-5 will-reveal">
         <div class="card-top">
-          <div><p class="card-label">In production</p><h3>Elixir / Phoenix</h3></div>
+          <div><p class="card-label">Em produção</p><h3>Elixir / Phoenix</h3></div>
           <span class="glyph" style="color:var(--cyan)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2c3 4 6 8.5 6 12.5A6 6 0 0 1 6 14.5C6 10.5 9 6 12 2z"/></svg></span>
         </div>
         <div class="badges">
           <span class="badge e">Elixir</span><span class="badge e">Phoenix</span><span class="badge e">LiveView</span><span class="badge">PostgreSQL</span>
         </div>
-        <p class="feature-note">Two systems built with Elixir currently running in production, including a church management platform integrated with the WhatsApp Business API.</p>
+        <p class="feature-note">Dois sistemas feitos em Elixir rodando em produção, incluindo uma plataforma de gestão de igrejas integrada à API do WhatsApp Business.</p>
       </article>
 
       <article class="card c-6 will-reveal">
-        <div class="card-top"><div><p class="card-label">Languages</p><h3>Polyglot by necessity</h3></div></div>
+        <div class="card-top"><div><p class="card-label">Linguagens</p><h3>Poliglota por necessidade</h3></div></div>
         <div class="badges">
           <span class="badge k">Ruby</span><span class="badge e">Elixir</span><span class="badge">JavaScript</span><span class="badge">TypeScript</span><span class="badge">Node.js</span><span class="badge">Java</span><span class="badge">.NET</span>
         </div>
       </article>
 
       <article class="card c-6 will-reveal">
-        <div class="card-top"><div><p class="card-label">Frameworks</p><h3>Front to back</h3></div></div>
+        <div class="card-top"><div><p class="card-label">Frameworks</p><h3>Do front ao back</h3></div></div>
         <div class="badges">
           <span class="badge">React</span><span class="badge k">Rails</span><span class="badge e">Phoenix</span><span class="badge e">LiveView</span><span class="badge">Quarkus</span><span class="badge">React Native</span><span class="badge">Flutter</span>
         </div>
       </article>
 
       <article class="card c-4 will-reveal">
-        <div class="card-top"><div><p class="card-label">Real-time</p><h3>Live by default</h3></div>
+        <div class="card-top"><div><p class="card-label">Tempo real</p><h3>Ao vivo por padrão</h3></div>
           <span class="glyph" style="color:var(--live)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 12h4l3-7 4 14 3-7h6"/></svg></span></div>
-        <div class="badges"><span class="badge">WebRTC</span><span class="badge">WebSocket</span><span class="badge">Live dashboards</span></div>
+        <div class="badges"><span class="badge">WebRTC</span><span class="badge">WebSocket</span><span class="badge">Dashboards ao vivo</span></div>
       </article>
 
       <article class="card c-4 will-reveal">
-        <div class="card-top"><div><p class="card-label">Data</p><h3>Relational + spatial</h3></div>
+        <div class="card-top"><div><p class="card-label">Dados</p><h3>Relacional + espacial</h3></div>
           <span class="glyph" style="color:#61DAFB"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5.5" rx="7.5" ry="3"/><path d="M4.5 5.5v13c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-13M4.5 12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3"/></svg></span></div>
         <div class="badges"><span class="badge">PostgreSQL</span><span class="badge">PostGIS</span><span class="badge">Oracle</span><span class="badge">MySQL</span></div>
       </article>
 
       <article class="card c-4 will-reveal">
-        <div class="card-top"><div><p class="card-label">Delivery</p><h3>Ship it safely</h3></div>
+        <div class="card-top"><div><p class="card-label">Entrega</p><h3>Entregar com segurança</h3></div>
           <span class="glyph" style="color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></span></div>
         <div class="badges"><span class="badge">Docker</span><span class="badge">Jenkins</span><span class="badge">CI/CD</span><span class="badge">TDD</span><span class="badge">DevOps</span><span class="badge">Jira API</span></div>
       </article>
 
       <article class="card c-12 will-reveal">
-        <div class="card-top"><div><p class="card-label">How I work</p><h3>Practices & strengths</h3></div></div>
+        <div class="card-top"><div><p class="card-label">Como eu trabalho</p><h3>Práticas e pontos fortes</h3></div></div>
         <div class="badges">
-          <span class="badge">Code reviews</span><span class="badge">Mentoring</span><span class="badge">Scrum / Kanban</span><span class="badge">Automated testing</span><span class="badge">Legacy integration</span><span class="badge">Debugging</span><span class="badge">Ownership & accountability</span><span class="badge">Stakeholder communication</span>
+          <span class="badge">Code review</span><span class="badge">Mentoria</span><span class="badge">Scrum / Kanban</span><span class="badge">Testes automatizados</span><span class="badge">Integração com legado</span><span class="badge">Depuração</span><span class="badge">Ownership e responsabilidade</span><span class="badge">Comunicação com stakeholders</span>
         </div>
       </article>
     </div>
@@ -125,78 +125,78 @@ broadcasts_to <span class="s">->(m) { [m.room, :participants] }</span>
 <section id="experience">
   <div class="wrap">
     <div class="sec-head">
-      <div><p class="kicker"><b>02</b> Experience & impact</p><h2 class="h2 split">Nine years in production.</h2></div>
-      <p class="will-reveal fade">From freelance mobile apps to citizen-facing platforms for Fortaleza City Hall.</p>
+      <div><p class="kicker"><b>02</b> Experiência e impacto</p><h2 class="h2 split">Nove anos em produção.</h2></div>
+      <p class="will-reveal fade">De apps mobile como freelancer a plataformas para o cidadão na Prefeitura de Fortaleza.</p>
     </div>
 
     <div class="metrics">
-      <div class="metric will-reveal"><div class="num"><small>~</small><span class="count" data-to="9">0</span></div><p><b>Years</b> designing, building and maintaining production web systems.</p></div>
-      <div class="metric will-reveal"><div class="num"><span class="count" data-to="6000" data-sep="1">0</span><sup>+</sup></div><p><b>Meetings a month</b> on the video platform I architected for the City Hall.</p></div>
-      <div class="metric will-reveal"><div class="num"><small>~</small><span class="count" data-to="90">0</span><sup>%</sup></div><p><b>Unit test coverage</b> reached at Lampp-IT, with automated CI/CD pipelines.</p></div>
-      <div class="metric will-reveal"><div class="num"><span class="count" data-to="2">0</span></div><p><b>Elixir/Phoenix systems</b> I built that are running in production today.</p></div>
+      <div class="metric will-reveal"><div class="num"><small>~</small><span class="count" data-to="9">0</span></div><p><b>Anos</b> projetando, construindo e mantendo sistemas web em produção.</p></div>
+      <div class="metric will-reveal"><div class="num"><span class="count" data-to="6000" data-sep="1">0</span><sup>+</sup></div><p><b>Reuniões por mês</b> na plataforma de vídeo que arquitetei para a Prefeitura.</p></div>
+      <div class="metric will-reveal"><div class="num"><small>~</small><span class="count" data-to="90">0</span><sup>%</sup></div><p><b>De cobertura de testes unitários</b> na Lampp-IT, com pipelines de CI/CD automatizados.</p></div>
+      <div class="metric will-reveal"><div class="num"><span class="count" data-to="2">0</span></div><p><b>Sistemas Elixir/Phoenix</b> que construí e que rodam em produção hoje.</p></div>
     </div>
 
     <div class="timeline" id="timeline">
       <div class="tl-rail"></div><div class="tl-prog" id="tlProg"></div>
 
       <article class="job">
-        <div class="job-when"><b>Fortaleza City Hall</b>Sep 2020 – Present<br><span class="now">● Current</span></div>
+        <div class="job-when"><b>Prefeitura de Fortaleza</b>Set 2020 – Atual<br><span class="now">● Atual</span></div>
         <div class="job-body">
-          <h3>Full-Stack Developer</h3>
-          <p>Lead development of scalable citizen-facing and internal web systems, focused on reliability, performance and measurable operational gains.</p>
+          <h3>Desenvolvedor Full-Stack</h3>
+          <p>Lidero o desenvolvimento de sistemas web escaláveis, internos e voltados ao cidadão, com foco em confiabilidade, performance e ganhos operacionais mensuráveis.</p>
           <ul>
-            <li><b>Video chat platform:</b> architected and built real-time video conferencing for customer–company problem solving, supporting 6,000+ meetings a month with consistent uptime.</li>
-            <li><b>Geolocation platform:</b> PostGIS-powered storage, querying and visualization of geospatial data at scale.</li>
-            <li>Delivered multiple production systems in Rails, React (TypeScript) and .NET.</li>
+            <li><b>Plataforma de videochamada:</b> arquitetei e construí a videoconferência em tempo real para atendimento entre clientes e empresas, com mais de 6.000 reuniões por mês e disponibilidade consistente.</li>
+            <li><b>Plataforma de geolocalização:</b> armazenamento, consulta e visualização de dados geoespaciais em escala com PostGIS.</li>
+            <li>Entreguei diversos sistemas em produção com Rails, React (TypeScript) e .NET.</li>
           </ul>
           <div class="tools"><span>Rails</span><span>Hotwire/Stimulus</span><span>React</span><span>.NET</span><span>WebRTC</span><span>WebSocket</span><span>Docker</span><span>PostGIS</span><span>CI/CD</span></div>
         </div>
       </article>
 
       <article class="job">
-        <div class="job-when"><b>Lampp-IT</b>Apr 2019 – Aug 2020</div>
+        <div class="job-when"><b>Lampp-IT</b>Abr 2019 – Ago 2020</div>
         <div class="job-body">
-          <h3>Full-Stack Developer</h3>
-          <p>Web and mobile systems for state organizations, often on legacy codebases and unfamiliar stacks.</p>
+          <h3>Desenvolvedor Full-Stack</h3>
+          <p>Sistemas web e mobile para órgãos do estado, muitas vezes em bases de código legadas e stacks desconhecidas.</p>
           <ul>
-            <li>Reached <b>~90% unit test coverage</b> and implemented automated CI/CD pipelines to improve reliability and release speed.</li>
-            <li>Shipped across React Native, Flutter, Java 6 and legacy systems.</li>
-            <li>Built and maintained CRUD systems of varying complexity for public-sector clients.</li>
+            <li>Alcancei <b>~90% de cobertura de testes unitários</b> e implementei pipelines de CI/CD automatizados para melhorar a confiabilidade e a velocidade das entregas.</li>
+            <li>Entregas com React Native, Flutter, Java 6 e sistemas legados.</li>
+            <li>Construí e mantive sistemas CRUD de diferentes complexidades para clientes do setor público.</li>
           </ul>
           <div class="tools"><span>Rails</span><span>React</span><span>TypeScript</span><span>Flutter</span><span>React Native</span><span>Java 6</span><span>Jenkins</span></div>
         </div>
       </article>
 
       <article class="job">
-        <div class="job-when"><b>Rubert Tecnologia</b>Nov 2018 – Apr 2019</div>
+        <div class="job-when"><b>Rubert Tecnologia</b>Nov 2018 – Abr 2019</div>
         <div class="job-body">
-          <h3>Ruby on Rails Developer</h3>
+          <h3>Desenvolvedor Ruby on Rails</h3>
           <ul>
-            <li>Built a <b>real-time event performance platform</b> aggregating sales, agreements and metrics into live dashboards on large screens.</li>
-            <li>Distributed architecture with multiple Raspberry Pi devices synced to a central web app.</li>
+            <li>Construí uma <b>plataforma de performance de eventos em tempo real</b>, reunindo vendas, acordos e métricas em dashboards ao vivo em telões.</li>
+            <li>Arquitetura distribuída com vários Raspberry Pi sincronizados com uma aplicação web central.</li>
           </ul>
           <div class="tools"><span>Rails</span><span>React</span><span>Docker</span><span>Raspberry Pi</span></div>
         </div>
       </article>
 
       <article class="job">
-        <div class="job-when"><b>3IT Consultoria</b>Jan 2018 – Oct 2018</div>
+        <div class="job-when"><b>3IT Consultoria</b>Jan 2018 – Out 2018</div>
         <div class="job-body">
-          <h3>Junior Developer</h3>
+          <h3>Desenvolvedor Júnior</h3>
           <ul>
-            <li>Rails features with database modeling and REST endpoints; responsive UIs in AngularJS and Angular.</li>
-            <li>Hybrid mobile releases with Ionic; Joomla and WordPress theme and plugin work.</li>
+            <li>Funcionalidades em Rails com modelagem de banco de dados e endpoints REST; interfaces responsivas em AngularJS e Angular.</li>
+            <li>Apps mobile híbridos com Ionic; temas e plugins para Joomla e WordPress.</li>
           </ul>
           <div class="tools"><span>Rails</span><span>Angular</span><span>Ionic</span><span>PostgreSQL</span><span>PHP</span></div>
         </div>
       </article>
 
       <article class="job">
-        <div class="job-when"><b>Freelance</b>Sep 2016 – Feb 2018</div>
+        <div class="job-when"><b>Freelancer</b>Set 2016 – Fev 2018</div>
         <div class="job-body">
-          <h3>Mobile Developer</h3>
+          <h3>Desenvolvedor Mobile</h3>
           <ul>
-            <li>End-to-end Android apps for a healthcare clinic, a car rental and sales business, and a hospitality client, from requirements to handoff.</li>
+            <li>Apps Android de ponta a ponta para uma clínica de saúde, uma locadora e revenda de carros e um cliente de hotelaria, do levantamento de requisitos à entrega.</li>
           </ul>
           <div class="tools"><span>Ionic</span><span>Angular</span><span>PHP</span><span>MySQL</span></div>
         </div>
@@ -204,9 +204,9 @@ broadcasts_to <span class="s">->(m) { [m.room, :participants] }</span>
     </div>
 
     <div class="edu">
-      <div class="will-reveal"><small>2022</small><b>MBA in Agile Software Engineering</b><span>IGTI</span></div>
-      <div class="will-reveal"><small>2021</small><b>Software Architecture Bootcamp</b><span>IGTI</span></div>
-      <div class="will-reveal"><small>2016 – 2019</small><b>Degree in Internet Systems</b><span>UNIGRANDE</span></div>
+      <div class="will-reveal"><small>2022</small><b>MBA em Engenharia de Software Ágil</b><span>IGTI</span></div>
+      <div class="will-reveal"><small>2021</small><b>Bootcamp de Arquitetura de Software</b><span>IGTI</span></div>
+      <div class="will-reveal"><small>2016 – 2019</small><b>Graduação em Sistemas para Internet</b><span>UNIGRANDE</span></div>
     </div>
   </div>
 </section>
@@ -215,8 +215,8 @@ broadcasts_to <span class="s">->(m) { [m.room, :participants] }</span>
 <section id="projects" class="projects">
   <div class="wrap">
     <div class="sec-head">
-      <div><p class="kicker"><b>03</b> Key projects</p><h2 class="h2 split">Built, shipped, still running.</h2></div>
-      <p class="will-reveal fade">Interfaces are illustrative recreations. Hover a screen to tilt it.</p>
+      <div><p class="kicker"><b>03</b> Projetos principais</p><h2 class="h2 split">Construídos, entregues, ainda no ar.</h2></div>
+      <p class="will-reveal fade">As interfaces são recriações ilustrativas. Passe o mouse sobre uma tela para incliná-la.</p>
     </div>
   </div>
   <div class="proj-viewport">
@@ -226,22 +226,22 @@ broadcasts_to <span class="s">->(m) { [m.room, :participants] }</span>
         <div class="mock" data-tilt>
           <div class="mock-bar"><i></i><i></i><i></i><span>atendimento.fortaleza.ce.gov.br/sala</span></div>
           <div class="mock-body">
-            <span class="livepill">LIVE · 12:48</span>
+            <span class="livepill">AO VIVO · 12:48</span>
             <div class="vgrid">
-              <div class="vtile speak" style="--t1:#5B3BB8;--t2:#1D1638"><b>CL</b><small>Citizen</small></div>
-              <div class="vtile" style="--t1:#2D5BB8;--t2:#121A2A"><b>AT</b><small>Agent</small></div>
-              <div class="vtile" style="--t1:#2D7F67;--t2:#0F2620"><b>SP</b><small>Specialist</small></div>
-              <div class="vtile" style="--t1:#3A4C7A;--t2:#141A2A"><b>+1</b><small>Screen share</small></div>
+              <div class="vtile speak" style="--t1:#5B3BB8;--t2:#1D1638"><b>CL</b><small>Cidadão</small></div>
+              <div class="vtile" style="--t1:#2D5BB8;--t2:#121A2A"><b>AT</b><small>Atendente</small></div>
+              <div class="vtile" style="--t1:#2D7F67;--t2:#0F2620"><b>SP</b><small>Especialista</small></div>
+              <div class="vtile" style="--t1:#3A4C7A;--t2:#141A2A"><b>+1</b><small>Tela compartilhada</small></div>
             </div>
             <div class="vbar"><i></i><i></i><i></i><i class="end"></i></div>
             <div class="reveal-mask"></div>
           </div>
         </div>
         <div>
-          <span class="proj-n">01 / Fortaleza City Hall · WebRTC</span>
-          <h3>Real-time video service platform</h3>
-          <p>Architected and built video conferencing for customer–company problem solving, cutting client costs and speeding up issue resolution.</p>
-          <div class="impact"><b class="grad-text">6,000+</b><span>meetings a month with consistent uptime</span></div>
+          <span class="proj-n">01 / Prefeitura de Fortaleza · WebRTC</span>
+          <h3>Plataforma de atendimento por vídeo em tempo real</h3>
+          <p>Arquitetei e construí a videoconferência para atendimento entre clientes e empresas, reduzindo custos e acelerando a resolução de problemas.</p>
+          <div class="impact"><b class="grad-text">6.000+</b><span>reuniões por mês com disponibilidade consistente</span></div>
           <div class="tools"><span>WebRTC</span><span>WebSocket</span><span>Rails</span><span>Hotwire</span><span>Docker</span></div>
         </div>
       </article>
@@ -261,16 +261,16 @@ broadcasts_to <span class="s">->(m) { [m.room, :participants] }</span>
                 <g fill="#3BE8A8"><circle cx="95" cy="130" r="4"/><circle cx="140" cy="118" r="4"/><circle cx="160" cy="140" r="4"/><circle cx="118" cy="150" r="4"/><circle cx="295" cy="110" r="4"/><circle cx="315" cy="132" r="4"/><circle cx="285" cy="135" r="4"/></g>
                 <g fill="#555"><circle cx="40" cy="40" r="3"/><circle cx="220" cy="30" r="3"/><circle cx="360" cy="210" r="3"/><circle cx="60" cy="220" r="3"/><circle cx="200" cy="220" r="3"/></g>
               </svg>
-              <div class="panel"><b>Spatial query</b><span class="q">ST_DWithin</span>(geom, point, 500)<br>→ 3 features in radius<br><span class="q">ST_Contains</span>(zone, geom)<br>→ 4 features in zone</div>
+              <div class="panel"><b>Consulta espacial</b><span class="q">ST_DWithin</span>(geom, point, 500)<br>→ 3 feições no raio<br><span class="q">ST_Contains</span>(zone, geom)<br>→ 4 feições na zona</div>
             </div>
             <div class="reveal-mask"></div>
           </div>
         </div>
         <div>
-          <span class="proj-n">02 / Fortaleza City Hall · PostGIS</span>
-          <h3>Geolocation platform</h3>
-          <p>A PostGIS-powered platform for storing, querying and visualizing geospatial data at scale for city operations.</p>
-          <div class="impact"><b class="grad-text">PostGIS</b><span>spatial storage, queries and visualization</span></div>
+          <span class="proj-n">02 / Prefeitura de Fortaleza · PostGIS</span>
+          <h3>Plataforma de geolocalização</h3>
+          <p>Uma plataforma com PostGIS para armazenar, consultar e visualizar dados geoespaciais em escala para as operações da cidade.</p>
+          <div class="impact"><b class="grad-text">PostGIS</b><span>armazenamento, consultas e visualização espacial</span></div>
           <div class="tools"><span>PostgreSQL</span><span>PostGIS</span><span>Rails</span><span>React</span><span>TypeScript</span></div>
         </div>
       </article>
@@ -282,8 +282,8 @@ broadcasts_to <span class="s">->(m) { [m.room, :participants] }</span>
             <div class="app2">
               <div class="side"><span></span><span class="on"></span><span></span><span></span><span></span></div>
               <div class="main2">
-                <div class="kpis"><div><b>Members</b>active</div><div><b>Groups</b>weekly</div><div><b>Events</b>registrations</div></div>
-                <div class="msg"><small>WhatsApp Business API · automated</small><div class="bub">Reminder: youth group meets tonight at 7 pm.</div><div class="bub me">Confirmed ✓</div></div>
+                <div class="kpis"><div><b>Membros</b>ativos</div><div><b>Grupos</b>semanais</div><div><b>Eventos</b>inscrições</div></div>
+                <div class="msg"><small>API do WhatsApp Business · automático</small><div class="bub">Lembrete: o grupo de jovens se reúne hoje às 19h.</div><div class="bub me">Confirmado ✓</div></div>
                 <div class="rows2"><span></span><span></span></div>
               </div>
             </div>
@@ -291,10 +291,10 @@ broadcasts_to <span class="s">->(m) { [m.room, :participants] }</span>
           </div>
         </div>
         <div>
-          <span class="proj-n">03 / Side work · Elixir / Phoenix</span>
-          <h3>Church & event management systems</h3>
-          <p>Two production platforms: church operations with WhatsApp Business API messaging, and event registrations with operational workflows.</p>
-          <div class="impact"><b class="grad-text">2 systems</b><span>built in Elixir and running in production</span></div>
+          <span class="proj-n">03 / Projetos paralelos · Elixir / Phoenix</span>
+          <h3>Sistemas de gestão de igrejas e eventos</h3>
+          <p>Duas plataformas em produção: gestão de igrejas com mensagens pela API do WhatsApp Business e inscrições em eventos com fluxos operacionais.</p>
+          <div class="impact"><b class="grad-text">2 sistemas</b><span>feitos em Elixir e rodando em produção</span></div>
           <div class="tools"><span>Elixir</span><span>Phoenix</span><span>PostgreSQL</span><span>Docker</span><span>CI/CD</span></div>
         </div>
       </article>
@@ -305,17 +305,17 @@ broadcasts_to <span class="s">->(m) { [m.room, :participants] }</span>
           <div class="mock-body">
             <div class="tv">
               <div class="bars" id="bars"><i style="height:42%"></i><i style="height:66%"></i><i style="height:51%"></i><i style="height:88%"></i><i style="height:73%"></i><i style="height:95%"></i><i style="height:60%"></i></div>
-              <div class="lead"><div>Sales <b>live</b></div><div>Agreements <b>live</b></div><div>Metrics <b>live</b></div>
+              <div class="lead"><div>Vendas <b>ao vivo</b></div><div>Acordos <b>ao vivo</b></div><div>Métricas <b>ao vivo</b></div>
                 <div class="pis"><span>Pi ●</span><span>Pi ●</span><span>Pi ●</span></div></div>
             </div>
             <div class="reveal-mask"></div>
           </div>
         </div>
         <div>
-          <span class="proj-n">04 / Rubert Tecnologia · Real-time</span>
-          <h3>Live event performance dashboards</h3>
-          <p>Aggregated sales, agreements and metrics into live dashboards on large screens, driven by Raspberry Pi devices synced to a central web app.</p>
-          <div class="impact"><b class="grad-text">Synced</b><span>distributed Raspberry Pi screens, one source of truth</span></div>
+          <span class="proj-n">04 / Rubert Tecnologia · Tempo real</span>
+          <h3>Dashboards de performance de eventos ao vivo</h3>
+          <p>Reuni vendas, acordos e métricas em dashboards ao vivo em telões, alimentados por Raspberry Pi sincronizados com uma aplicação web central.</p>
+          <div class="impact"><b class="grad-text">Sincronizado</b><span>telas com Raspberry Pi distribuídas, uma única fonte de verdade</span></div>
           <div class="tools"><span>Rails</span><span>React</span><span>Docker</span><span>Raspberry Pi</span></div>
         </div>
       </article>
@@ -327,29 +327,29 @@ broadcasts_to <span class="s">->(m) { [m.room, :participants] }</span>
 <!-- ================= SCENE 5 · CONTACT ================= -->
 <section id="contact" class="contact">
   <div class="wrap">
-    <p class="kicker"><b>04</b> Contact</p>
-    <h2 class="h2 split" id="ctaHead" data-tint-a="that" data-tint-b="ships">Let’s build something that ships.</h2>
+    <p class="kicker"><b>04</b> Contato</p>
+    <h2 class="h2 split" id="ctaHead" data-tint-a="que" data-tint-b="ar">Vamos construir algo que vai pro ar.</h2>
     <div class="contact-grid">
       <div>
-        <p class="contact-copy will-reveal fade">Senior full-stack engineer with an ownership mindset. I like hard real-time problems, legacy integrations and teams that care about tests. Based in Brazil, open to remote work.</p>
+        <p class="contact-copy will-reveal fade">Engenheiro full-stack sênior com mentalidade de dono. Gosto de problemas difíceis de tempo real, integrações com legado e times que se importam com testes. Moro no Brasil e estou aberto a trabalho remoto.</p>
         <div class="socials">
           <a class="btn magnetic will-reveal" href="https://www.linkedin.com/in/allef-gomes/" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.05c.53-1 1.84-2.05 3.8-2.05 4.05 0 4.8 2.67 4.8 6.13V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.95 1.32-1.95 2.69V21h-4z"/></svg>LinkedIn</a>
           <button type="button" class="btn magnetic will-reveal" data-copy="allefgalmeida@gmail.com">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Copy email</span></button>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Copiar e-mail</span></button>
           <button type="button" class="btn magnetic will-reveal" data-copy="+55 85 99823-7787">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span>Copy phone</span></button>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span>Copiar telefone</span></button>
         </div>
       </div>
       <div class="git will-reveal" id="git">
-        <button type="button" class="git-btn" id="gitBtn" aria-expanded="false" aria-controls="contactCard">Get in<br>touch<span>CLICK ↘</span></button>
+        <button type="button" class="git-btn" id="gitBtn" aria-expanded="false" aria-controls="contactCard">Fale<br>comigo<span>CLIQUE ↘</span></button>
       </div>
     </div>
 
     <div class="contact-card" id="contactCard" aria-live="polite">
-      <div class="cc"><small>Email</small><span class="val" id="emailVal">allefgalmeida@gmail.com</span><div class="row"><button type="button" class="btn sm solid" data-copy="allefgalmeida@gmail.com"><span>Copy email</span></button></div></div>
-      <div class="cc"><small>Phone / WhatsApp</small><span class="val">+55 (85) 99823-7787</span><div class="row"><button type="button" class="btn sm" data-copy="+55 85 99823-7787"><span>Copy number</span></button></div></div>
-      <div class="cc"><small>LinkedIn</small><span class="val">linkedin.com/in/allef-gomes</span><div class="row"><a class="btn sm" href="https://www.linkedin.com/in/allef-gomes/" target="_blank" rel="noopener">Open profile ↗</a><button type="button" class="btn sm close-card" id="closeCard">Close</button></div></div>
+      <div class="cc"><small>E-mail</small><span class="val" id="emailVal">allefgalmeida@gmail.com</span><div class="row"><button type="button" class="btn sm solid" data-copy="allefgalmeida@gmail.com"><span>Copiar e-mail</span></button></div></div>
+      <div class="cc"><small>Telefone / WhatsApp</small><span class="val">+55 (85) 99823-7787</span><div class="row"><button type="button" class="btn sm" data-copy="+55 85 99823-7787"><span>Copiar número</span></button></div></div>
+      <div class="cc"><small>LinkedIn</small><span class="val">linkedin.com/in/allef-gomes</span><div class="row"><a class="btn sm" href="https://www.linkedin.com/in/allef-gomes/" target="_blank" rel="noopener">Abrir perfil ↗</a><button type="button" class="btn sm close-card" id="closeCard">Fechar</button></div></div>
     </div>
   </div>
 </section>

@@ -1,24 +1,24 @@
 ---
 layout: post
-title: PT-BR - Conceitos da LGPD
+title: "Core concepts of the LGPD"
 date: 2023-07-05 00:00:00 +0300
-description: Sobre a Lei Geral de Proteção de Dados
+description: About Brazil's General Data Protection Law
 img: lgpd/default.png
-tags: [Til, LGPD]
+tags: [TIL, LGPD]
 ---
 
-LGPD é a lei 13.709/18 que altera a lei 12.965/14 sobre a proteção de dados.
+The LGPD (Lei Geral de Proteção de Dados, Brazil's General Data Protection Law) is Law 13.709/18, which amends Law 12.965/14 on data protection.
 
-O artigo 5º detalha bastante os conceitos e estão aqui alguns que acho ser os principais:
+Article 5 describes the concepts in detail. Here are the ones I consider the most important:
 
-### Titular
-É uma pessoa natural a quem se referem os dados pessoais que são objetos do tratamento
+### Data subject
+The natural person to whom the personal data being processed refers.
 
-### Consentimento
-É a manifestação livre, informada e inequívoca pela qual o titular concorda com o tratamento ded seus dados pessoais para uma finalidade
+### Consent
+A free, informed and unambiguous statement by which the data subject agrees to the processing of their personal data for a specific purpose.
 
-### Dado Pessoal
-É a informação relacionada a pessoa natural identificada ou identificável
+### Personal data
+Information related to an identified or identifiable natural person.
 
-### Dado Pessoal Sensível
-É o dado referente a origem racial ou étnica, convicção religiosa, opnião política, filiação a sindicato ou a organização de caráter religioso, filosófico ou político, dado referente à saúde ou a vida sexual, dado genético ou biométrico, quando vinculado a uma pessoa natural
+### Sensitive personal data
+Personal data about racial or ethnic origin, religious belief, political opinion, membership of a trade union or of a religious, philosophical or political organization, data about health or sex life, and genetic or biometric data, when linked to a natural person.

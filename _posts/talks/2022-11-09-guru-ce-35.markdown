@@ -1,18 +1,18 @@
 ---
 layout: post
-title: PT-BR - GURU-CE 35
+title: "GURU-CE 35"
 date: 2022-11-09 00:00:00 +0000
-description: Guru-CE 35 - Palestra sobre Hotwire
+description: GURU-CE 35 - A talk about Hotwire
 img: talks/guru-ce-35.jpeg
 tags: [Talks, Guru-CE, Ruby, Hotwire, Rails]
 ---
 
-No sábado (09/11/2024), tive a honra de participar do 35º GURU-CE onde tive a oportunidade de compartilhar um pouco sobre #rails e #hotwire. Foi uma experiência incrível, não apenas por poder falar sobre tecnologias que curto demais, mas também por conhecer novas pessoas e expandir meu aprendizado sobre o ecossistema Ruby. 🙌
+On Saturday (09/11/2024), I had the honor of taking part in the 35th GURU-CE, where I got to share a bit about #rails and #hotwire. It was an amazing experience, not only because I got to talk about technologies I really enjoy, but also because I met new people and expanded what I know about the Ruby ecosystem. 🙌
 
-Agradeço imensamente à organização do GURU-CE por proporcionar um evento tão especial e bem estruturado. 🎉
+A huge thank you to the GURU-CE organizers for putting together such a special, well-run event. 🎉
 
-Também quero parabenizar os demais palestrantes — [Arthur Molina](https://www.linkedin.com/in/arthurmolina), [Frankyston Lins Nogueira](https://www.linkedin.com/in/frankyston) e [Edigleysson Silva](https://www.linkedin.com/in/edigleyssonsilva). — que nos presentearam com palestras riquíssimas e inspiradoras. 👏
+I also want to congratulate the other speakers — [Arthur Molina](https://www.linkedin.com/in/arthurmolina), [Frankyston Lins Nogueira](https://www.linkedin.com/in/frankyston) and [Edigleysson Silva](https://www.linkedin.com/in/edigleyssonsilva) — who gave us rich and inspiring talks. 👏
 
-Se você tiver interesse em conhecer mais sobre o tema que apresentei, os slides da minha palestra estão disponíveis [aqui](https://lnkd.in/drXkYNu8).
+If you'd like to learn more about the topic I presented, the slides from my talk are available [here](https://lnkd.in/drXkYNu8).
 
-Obrigado a todos que tornaram este evento tão memorável! Até a próxima! 🚀
+Thanks to everyone who made this event so memorable! See you next time! 🚀

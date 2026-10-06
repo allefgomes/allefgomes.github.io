@@ -1,23 +1,23 @@
 ---
 layout: post
-title: PT-BR - Adicionando bootstrap 5 no projeto phoenix
+title: "Adding Bootstrap 5 to a Phoenix project"
 date: 2022-12-20 00:00:00 +0300
-description: Exemplificando como adicionar boostrap 5 em uma aplicação Phoenix
+description: A walkthrough of adding Bootstrap 5 to a Phoenix application
 img: elixir/phoenix.png
-tags: [Til, Elixir, Phoenix, Bootstrap]
+tags: [TIL, Elixir, Phoenix, Bootstrap]
 ---
 
-Normalmente quando se fala de aplicação phoenix, se fala também de tailwindcss, mas nem todo mundo tem familiaridade com o tailwindcss e precisa de algo mais rápido para entregar.
+Phoenix applications usually come with Tailwind CSS, but not everyone is familiar with Tailwind, and sometimes you need something faster to ship.
 
-Já o bootstrap ainda continua sendo bastante utilizado em aplicações web. Então a ideia desse tutorial é demostrar como aplicar o bootstrap nas suas aplicações phoenix de maneira rápida.
+Bootstrap is still widely used in web applications. So the goal of this tutorial is to show how to add Bootstrap to your Phoenix applications quickly.
 
-Para utilizarmos o boostrap, faremos a utilização da lib [dart_sass](https://hexdocs.pm/dart_sass/DartSass.html) que é um instalador e "executor" para [sass](https://sass-lang.com/dart-sass).
+To use Bootstrap, we'll rely on the [dart_sass](https://hexdocs.pm/dart_sass/DartSass.html) library, an installer and runner for [Sass](https://sass-lang.com/dart-sass).
 
-Então vamos lá... No seu arquivo `mix.exs` na função privada `deps`, adicione a seguinte linha:
+Let's go... In your `mix.exs` file, inside the private `deps` function, add the following line:
 ```elixir
 {:dart_sass, "~> 0.5.1"}
 ```
-No arquivo `config/config.exs` adicione o código para adicionar as configurações do dart_sass: 
+In `config/config.exs`, add the dart_sass configuration:
 ```elixir
 config :dart_sass,
   version: "1.43.1",
@@ -26,7 +26,7 @@ config :dart_sass,
     cd: Path.expand("../assets", __DIR__)
   ]
 ```
-Na parte de watchers no arquivo `config/dev.exs` iremos adicionar o seguinte código para que nossa aplicação phoenix possa assistir os arquivos sass:
+In the watchers section of `config/dev.exs`, add the following code so your Phoenix app watches the Sass files:
 ```elixir
 sass: {
       DartSass,
@@ -34,19 +34,19 @@ sass: {
       [:default, ~w(--embed-source-map --source-map-urls=absolute --watch)]
     }
 ```
-Também no arquivo `mix.exs` iremos alterar os aliases. Na parte chamada `assets.deploy` iremos adicionar o código `"sass default --no-source-map --style=compressed"` onde ficará parecido com o código abaixo:
+Also in `mix.exs`, we'll change the aliases. In `assets.deploy`, add `"sass default --no-source-map --style=compressed"` so it looks like the code below:
 ```elixir
 "assets.deploy": ["esbuild default --minify", "sass default --no-source-map --style=compressed", "phx.digest"]
 ```
 
-Para finalizar, faremos mais três alterações na pasta `assets`. A primeira é rodar o comando `npm install boostrap --prefix assets` e após isso, renomear o arquivo `assets/css/app.css` para `assets/css/app.scss` e iremos apagar todo o conteúdo do arquivo e adicionar o código 
+To finish, we'll make three more changes in the `assets` folder. First, run `npm install bootstrap --prefix assets`. Then rename `assets/css/app.css` to `assets/css/app.scss`, delete all of its content and add:
 ```css
 @import "../node_modules/bootstrap/scss/bootstrap";
 ```
-E por fim, iremos remover o código `import "../css/app.css"` do arquivo `assets/js/app.js` e adicionar o código
+Finally, remove `import "../css/app.css"` from `assets/js/app.js` and add:
 
 ```js
 import "bootstrap"
 ```
 
-Agora você pode subir a aplicação e ver que toda a sua tela inicial foi alterada.
+Now start the application and you'll see the whole home page has changed.

@@ -1,10 +1,10 @@
 ---
 layout: post
-title: EN - Functional Programming Concepts
+title: "Functional Programming Concepts"
 date: 2020-04-29 00:00:00 +0300
-description: Functional programming is a programming paradigm. # Add post description (optional)
-img: software.jpg # Add image post (optional)
-tags: [Til, Functional Programming, Software] # add tag
+description: Functional programming is a programming paradigm.
+img: software.jpg
+tags: [TIL, Functional Programming, Software]
 ---
 
 Functional programming is a programming paradigm. A programming paradigm consists of the rules and design principles of building software; it’s a way of thinking about a programming language. The functional paradigm focuses on building software using pure functions organized in a way that describes what software must do, not how it must do it.
@@ -77,3 +77,4 @@ end
 
 StringList.upcase(["we", "learning", "about fp"])
 # => ["WE", "LEARNING", "ABOUT FP"]
+```

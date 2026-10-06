@@ -1,20 +1,41 @@
+{%- include lang.html -%}
+{%- if page.layout == 'portfolio' -%}{%- assign page_kind = 'portfolio' -%}{%- else -%}{%- assign page_kind = 'blog' -%}{%- endif -%}
+{%- if page_kind == 'portfolio' -%}{%- assign home = '#top' -%}{%- else -%}{%- assign home = base | append: '/' -%}{%- endif -%}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ t.html_lang }}" data-locale="{{ t.locale }}" data-copied="{{ t.copied }}">
 {% include head.html %}
 <body>
-<script>document.documentElement.classList.add('js');</script>
 
 <div class="bg-fx" aria-hidden="true"><div class="blob a"></div><div class="blob b"></div><div class="grain"></div></div>
 
 <header class="nav">
   <div class="wrap">
-    <a class="mark" href="{{ site.baseurl }}/" aria-label="{{ site.author }}, portfolio"><i>AG</i>{{ site.author }}</a>
+    <a class="mark" href="{{ site.baseurl }}{{ home }}" aria-label="{{ site.author }}, {{ t.nav.top }}"><i>AG</i>{{ site.author }}</a>
     <ul>
-      <li><a href="{{ site.baseurl }}/"><span>01</span>Portfolio</a></li>
-      <li><a href="{{ site.baseurl }}/blog/"{% if page.url contains '/blog/' or page.layout == 'post' %} aria-current="page"{% endif %}><span>02</span>Blog</a></li>
-      <li><a href="{{ site.baseurl }}/tags/"{% if page.url == '/tags/' %} aria-current="page"{% endif %}><span>03</span>Tags</a></li>
+      {%- if page_kind == 'portfolio' %}
+      <li><a href="#stack"><span>01</span>{{ t.nav.stack }}</a></li>
+      <li><a href="#experience"><span>02</span>{{ t.nav.experience }}</a></li>
+      <li><a href="#projects"><span>03</span>{{ t.nav.projects }}</a></li>
+      <li><a href="#contact"><span>04</span>{{ t.nav.contact }}</a></li>
+      <li><a href="{{ site.baseurl }}{{ base }}/blog/"><span>05</span>{{ t.nav.blog }}</a></li>
+      {%- else %}
+      <li><a href="{{ site.baseurl }}{{ base }}/"><span>01</span>{{ t.nav.portfolio }}</a></li>
+      <li><a href="{{ site.baseurl }}{{ base }}/blog/"{% if page.collection == 'posts' or page.url contains '/blog/' %} aria-current="page"{% endif %}><span>02</span>{{ t.nav.blog }}</a></li>
+      <li><a href="{{ site.baseurl }}{{ base }}/tags/"{% if page.url contains '/tags/' %} aria-current="page"{% endif %}><span>03</span>{{ t.nav.tags }}</a></li>
+      {%- endif %}
     </ul>
-    <a class="btn sm solid magnetic" href="{{ site.baseurl }}/#contact">Get in touch</a>
+    <div class="nav-end">
+      <nav class="lang" aria-label="{{ t.switch_label }}">
+        {%- if lang == 'en' %}
+        <a href="{{ site.baseurl }}{{ page.url }}" aria-current="true" lang="en" data-set-lang="en" title="English">EN</a>
+        <a href="{{ site.baseurl }}{{ alt_url }}" hreflang="pt-BR" lang="pt-BR" data-set-lang="pt" title="Português">PT</a>
+        {%- else %}
+        <a href="{{ site.baseurl }}{{ alt_url }}" hreflang="en" lang="en" data-set-lang="en" title="English">EN</a>
+        <a href="{{ site.baseurl }}{{ page.url }}" aria-current="true" lang="pt-BR" data-set-lang="pt" title="Português">PT</a>
+        {%- endif %}
+      </nav>
+      <a class="btn sm solid magnetic" href="{% if page_kind == 'portfolio' %}#contact{% else %}{{ site.baseurl }}{{ base }}/#contact{% endif %}">{{ t.nav.cta }}</a>
+    </div>
   </div>
   <div class="progress" id="progress"></div>
 </header>
@@ -24,7 +45,7 @@
 </main>
 
 <footer>
-  <div class="wrap"><span>© {{ site.time | date: '%Y' }} {{ site.author }} · <a href="{{ site.baseurl }}/">Portfolio</a> · <a href="https://github.com/{{ site.social-github }}" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/{{ site.social-linkedin }}/" target="_blank" rel="noopener">LinkedIn</a></span><span>Senior Software Engineer · Full-Stack · Brazil</span></div>
+  <div class="wrap"><span>© {{ site.time | date: '%Y' }} {{ site.author }} · <a href="{{ site.baseurl }}{{ base }}/">{{ t.nav.portfolio }}</a> · <a href="{{ site.baseurl }}{{ base }}/blog/">{{ t.nav.blog }}</a> · <a href="https://github.com/{{ site.social-github }}" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/{{ site.social-linkedin }}/" target="_blank" rel="noopener">LinkedIn</a></span><span>{{ t.role }}</span></div>
 </footer>
 </body>
 </html>

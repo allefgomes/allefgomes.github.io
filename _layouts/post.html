@@ -1,24 +1,34 @@
 ---
 layout: default
 ---
-{% capture words %}{{ content | number_of_words }}{% endcapture %}
+{%- include lang.html -%}
+{%- capture words %}{{ content | number_of_words }}{% endcapture -%}
+{%- comment -%} Older/newer links stay within the reader's language {%- endcomment -%}
+{%- assign lang_posts = site.posts | where: 'lang', lang -%}
+{%- assign newer = nil -%}{%- assign older = nil -%}
+{%- for p in lang_posts -%}
+  {%- if p.url == page.url -%}
+    {%- unless forloop.first -%}{%- assign i = forloop.index0 | minus: 1 -%}{%- assign newer = lang_posts[i] -%}{%- endunless -%}
+    {%- unless forloop.last -%}{%- assign i = forloop.index0 | plus: 1 -%}{%- assign older = lang_posts[i] -%}{%- endunless -%}
+  {%- endif -%}
+{%- endfor -%}
 <article class="page">
   <div class="wrap">
     <header class="post-head">
-      <p class="kicker"><a href="{{ site.baseurl }}/blog/"><b>←</b> Blog</a></p>
+      <p class="kicker"><a href="{{ site.baseurl }}{{ base }}/blog/"><b>←</b> {{ t.post.back }}</a></p>
       <h1 class="post-title split will-reveal">{{ page.title }}</h1>
       {% if page.description %}<p class="post-desc will-reveal fade">{{ page.description }}</p>{% endif %}
       <div class="post-meta will-reveal">
-        <span class="meta"><b>{{ page.date | date: '%Y.%m.%d' }}</b>{{ words | plus: 250 | divided_by: 250 }} min read</span>
+        <span class="meta"><b>{{ page.date | date: '%Y.%m.%d' }}</b>{{ words | plus: 250 | divided_by: 250 }} {{ t.blog.min_read }}</span>
         {% if page.tags.size > 0 %}
-        <ul class="tags">{% for tag in page.tags %}<li><a class="tag" href="{{ site.baseurl }}/tags/#{{ tag | cgi_escape }}"># {{ tag }}</a></li>{% endfor %}</ul>
+        <ul class="tags">{% for tag in page.tags %}<li><a class="tag" href="{{ site.baseurl }}{{ base }}/tags/#{{ tag | slugify }}"># {{ tag }}</a></li>{% endfor %}</ul>
         {% endif %}
       </div>
     </header>
 
     {% if page.img %}
     <figure class="cover will-reveal">
-      <div class="cover-bar"><i></i><i></i><i></i><span>{{ site.domain | default: "allefgomes.com" }}{{ page.url }}</span></div>
+      <div class="cover-bar"><i></i><i></i><i></i><span>allefgomes.com{{ page.url }}</span></div>
       <div class="cover-img">
         <img src="{{ "/assets/img/" | prepend: site.baseurl | append: page.img }}" alt="{{ page.title }}">
         <div class="reveal-mask"></div>
@@ -32,13 +42,13 @@ layout: default
     </div>
 
     <footer class="post-foot">
-      {% if page.previous or page.next %}
-      <nav class="post-nav" aria-label="More posts">
-        {% if page.previous %}<a class="card prev will-reveal" href="{{ site.baseurl }}{{ page.previous.url }}"><small>← Older</small><b>{{ page.previous.title }}</b></a>{% endif %}
-        {% if page.next %}<a class="card next will-reveal" href="{{ site.baseurl }}{{ page.next.url }}"><small>Newer →</small><b>{{ page.next.title }}</b></a>{% endif %}
+      {% if older or newer %}
+      <nav class="post-nav" aria-label="{{ t.post.more }}">
+        {% if older %}<a class="card prev will-reveal" href="{{ site.baseurl }}{{ older.url }}"><small>{{ t.post.older }}</small><b>{{ older.title }}</b></a>{% endif %}
+        {% if newer %}<a class="card next will-reveal" href="{{ site.baseurl }}{{ newer.url }}"><small>{{ t.post.newer }}</small><b>{{ newer.title }}</b></a>{% endif %}
       </nav>
       {% endif %}
-      <div><a class="btn magnetic" href="{{ site.baseurl }}/blog/">← All posts</a></div>
+      <div><a class="btn magnetic" href="{{ site.baseurl }}{{ base }}/blog/">{{ t.post.all }}</a></div>
     </footer>
   </div>
 </article>
