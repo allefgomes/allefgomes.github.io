@@ -25,6 +25,6 @@ plugins:
   - jemoji
 
 paginate: 10
-paginate_path: "/page/:num"
+paginate_path: "/blog/page/:num"
 
 exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]

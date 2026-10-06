@@ -1,19 +1,901 @@
 ---
-layout: main
+layout: null
 ---
-{% for post in paginator.posts %}
-<article class="post">
-  {% if post.img %}
-    <a class="post-thumbnail" style="background-image: url({{"/assets/img/" | prepend: site.baseurl | append : post.img}})" href="{{post.url | prepend: site.baseurl}}"></a>
-  {% else %}
-  {% endif %}
-  <div class="post-content">
-    <h2 class="post-title"><a href="{{post.url | prepend: site.baseurl}}">{{post.title}}</a></h2>
-    <p>{{ post.content | strip_html | truncatewords: 15 }}</p>
-    <span class="post-date">{{post.date | date: '%Y, %b %d'}}&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-    <span class="post-words">{% capture words %}{{ post.content | number_of_words }}{% endcapture %}{% unless words contains "-" %}{{ words | plus: 250 | divided_by: 250 | append: " minute read" }}{% endunless %}</span>
-  </div>
-</article>
-{% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Allef Gomes</title>
+<meta name="description" content="Allef Gomes — Senior Software Engineer (Full-Stack). Ruby on Rails, Elixir/Phoenix, React, real-time systems in production.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
+<style>
+/* Layout: editorial single column; hero split (headline | deploy log), bento stack grid, scrubbed timeline, pinned horizontal project track, contact finale */
+:root{
+  --bg:#0D0D0D;
+  --bg-2:#141414;
+  --bg-3:#1B1B1D;
+  --line:#262628;
+  --text:#F2EFEA;
+  --muted:#8C8A87;
+  --ruby:#FF3B5C;          /* Ruby / Rails */
+  --elixir:#A47BFF;        /* Elixir / Phoenix */
+  --live:#3BE8A8;          /* status: live / passing */
+  --grad:linear-gradient(100deg,var(--ruby) 0%,#E04BB0 45%,var(--elixir) 100%);
+  --display:'Syne','Arial Black',system-ui,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --gutter:clamp(16px,4vw,56px);
+  --max:1320px;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--bg);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.6 var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:inherit}
+::selection{background:var(--ruby);color:#fff}
+:focus-visible{outline:2px solid var(--elixir);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
+.mono{font-family:var(--mono)}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-{% include pagination.html %}
+/* noise + glows */
+.bg-fx{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.blob{position:absolute;width:60vmax;height:60vmax;border-radius:50%;opacity:.16;filter:blur(40px);will-change:transform}
+.blob.a{background:radial-gradient(closest-side,var(--ruby),transparent);top:-25vmax;left:-15vmax}
+.blob.b{background:radial-gradient(closest-side,var(--elixir),transparent);bottom:-30vmax;right:-20vmax}
+.grain{position:absolute;inset:-50%;opacity:.05;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+main,header,footer{position:relative;z-index:1}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);background:rgba(13,13,13,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.mark{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 15px/1 var(--display);letter-spacing:.02em}
+.mark i{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font:800 14px/1 var(--display);font-style:normal;background:var(--grad);color:#0D0D0D}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0}
+.nav ul a{text-decoration:none;font:500 13px/1 var(--body);color:var(--muted);transition:color .2s}
+.nav ul a:hover{color:var(--text)}
+.nav ul a span{font-family:var(--mono);color:var(--elixir);margin-right:6px;font-size:11px}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--grad);transform-origin:0 50%;transform:scaleX(0)}
+@media (max-width:820px){.nav ul{display:none}}
+
+/* buttons */
+.btn{--h:52px;display:inline-flex;align-items:center;gap:10px;height:var(--h);padding:0 24px;border-radius:999px;border:1px solid var(--line);background:var(--bg-2);color:var(--text);font:600 14px/1 var(--body);text-decoration:none;cursor:pointer;will-change:transform;transition:border-color .25s,background .25s}
+.btn:hover{border-color:#444}
+.btn.solid{background:var(--text);color:#0D0D0D;border-color:var(--text)}
+.btn.solid:hover{background:#fff}
+.btn.sm{--h:40px;padding:0 18px;font-size:13px}
+.btn svg{width:18px;height:18px}
+
+/* section scaffolding */
+section{position:relative;padding-block:clamp(90px,14vw,170px)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:20px 40px;margin-bottom:clamp(40px,6vw,72px)}
+.kicker{display:flex;align-items:center;gap:12px;margin:0 0 18px;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.kicker b{color:var(--elixir);font-weight:500}
+.kicker::after{content:"";width:48px;height:1px;background:var(--line)}
+.h2{margin:0;font:800 clamp(40px,7vw,104px)/.95 var(--display);letter-spacing:-.035em;text-wrap:balance}
+.h2 .line,.hero-title .line{overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+.sec-head p{margin:0;max-width:38ch;color:var(--muted)}
+@media (max-width:820px){.sec-head{grid-template-columns:1fr}}
+
+/* ---------- HERO ---------- */
+.hero{min-height:100svh;display:flex;align-items:center;padding-block:120px 80px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr);gap:clamp(32px,5vw,80px);align-items:center}
+.eyebrow{display:flex;align-items:center;gap:10px;margin:0 0 28px;font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--live);box-shadow:0 0 0 0 rgba(59,232,168,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(59,232,168,0)}100%{box-shadow:0 0 0 0 rgba(59,232,168,0)}}
+.hero-name{margin:0 0 14px;font:600 15px/1 var(--body);color:var(--text)}
+.hero-title{margin:0;font:800 clamp(46px,8.2vw,128px)/.92 var(--display);letter-spacing:-.045em;text-wrap:balance}
+.hero-title .word.hl{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.04em}
+.hero-sub{margin:32px 0 0;max-width:52ch;font-size:clamp(16px,1.35vw,19px);color:#BDBAB4}
+.hero-sub strong{color:var(--text);font-weight:600}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.02);font:500 12px/1 var(--mono);color:#CFCBC5;will-change:transform}
+.chip i{width:6px;height:6px;border-radius:50%;background:var(--c,var(--elixir))}
+@media (max-width:980px){.hero-grid{grid-template-columns:1fr}}
+
+/* deploy log */
+.term{position:relative;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg,#161618,#101011);box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.02) inset;overflow:hidden;will-change:transform}
+.term::before{content:"";position:absolute;inset:-1px;border-radius:18px;padding:1px;background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.55;pointer-events:none}
+.term-bar{display:flex;align-items:center;gap:8px;padding:14px 16px;border-bottom:1px solid var(--line);font:500 12px/1 var(--mono);color:var(--muted)}
+.term-bar i{width:10px;height:10px;border-radius:50%;background:#2E2E31}
+.term-bar span{margin-left:10px}
+.term-body{padding:20px 20px 24px;font:400 13.5px/1.9 var(--mono);color:#CFCBC5;min-height:300px}
+.tl-line{display:flex;justify-content:space-between;gap:16px;white-space:nowrap}
+.tl-line .p{color:var(--elixir)}
+.tl-line .ok{color:var(--live)}
+.tl-line .mut{color:var(--muted)}
+.tl-line.live{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);color:var(--text)}
+.tl-line.live b{font-weight:500;color:var(--live)}
+.caret{display:inline-block;width:8px;height:16px;background:var(--text);vertical-align:-3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* marquee */
+.marquee{position:relative;z-index:1;border-block:1px solid var(--line);overflow:hidden;padding-block:22px;background:var(--bg)}
+.marquee-track{display:flex;width:max-content;will-change:transform}
+.marquee-track span{display:flex;align-items:center;gap:28px;padding-right:28px;font:700 clamp(22px,3vw,40px)/1 var(--display);letter-spacing:-.02em;white-space:nowrap;color:#3A3937}
+.marquee-track span b{color:var(--text);font-weight:700}
+.marquee-track span em{font-style:normal;color:var(--ruby)}
+
+/* ---------- STACK ---------- */
+.bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}
+.card{--mx:50%;--my:50%;position:relative;border-radius:22px;background:var(--bg-2);border:1px solid var(--line);padding:clamp(22px,2.4vw,32px);overflow:hidden;isolation:isolate;will-change:transform}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(420px circle at var(--mx) var(--my),rgba(164,123,255,.16),transparent 45%);opacity:0;transition:opacity .3s;z-index:-1}
+.card::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:radial-gradient(300px circle at var(--mx) var(--my),var(--elixir),var(--ruby) 40%,transparent 70%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover::before,.card:hover::after{opacity:1}
+.c-5{grid-column:span 5}.c-7{grid-column:span 7}.c-4{grid-column:span 4}.c-6{grid-column:span 6}.c-12{grid-column:span 12}
+@media (max-width:980px){.c-5,.c-7,.c-4,.c-6{grid-column:span 6}}
+@media (max-width:640px){.bento>*{grid-column:1/-1!important}}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:22px}
+.card-label{margin:0;font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.card h3{margin:8px 0 0;font:700 clamp(22px,2.2vw,30px)/1.1 var(--display);letter-spacing:-.02em}
+.glyph{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;flex:none;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.glyph svg{width:22px;height:22px}
+.badges{display:flex;flex-wrap:wrap;gap:8px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border-radius:10px;background:var(--bg-3);border:1px solid #2A2A2D;font:500 13px/1 var(--body);color:#E4E0DA;will-change:transform}
+.badge.k{border-color:rgba(255,59,92,.4);background:rgba(255,59,92,.08)}
+.badge.e{border-color:rgba(164,123,255,.4);background:rgba(164,123,255,.08)}
+.badge .lv{font:500 10px/1 var(--mono);color:var(--muted);padding-left:8px;border-left:1px solid #333}
+.feature-note{margin:18px 0 0;font-size:14px;color:var(--muted);max-width:52ch}
+.code{margin-top:20px;padding:16px 18px;border-radius:14px;background:#0F0F10;border:1px solid var(--line);font:400 13px/1.75 var(--mono);color:#BDB9B3;overflow-x:auto;white-space:pre}
+.code .k{color:var(--ruby)} .code .s{color:var(--live)} .code .f{color:var(--elixir)} .code .c{color:#5E5C59}
+
+/* ---------- EXPERIENCE ---------- */
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:clamp(60px,8vw,110px)}
+@media (max-width:900px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.metric{padding:clamp(20px,2.4vw,30px);border-radius:22px;border:1px solid var(--line);background:var(--bg-2);min-width:0}
+.metric .num{display:flex;align-items:baseline;gap:2px;font:800 clamp(44px,5.6vw,84px)/1 var(--display);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.metric .num sup{font-size:.45em;top:0;vertical-align:.55em;color:var(--ruby)}
+.metric .num small{font-size:.45em;color:var(--elixir)}
+.metric p{margin:14px 0 0;font-size:14px;line-height:1.5;color:var(--muted)}
+.metric p b{color:var(--text);font-weight:600}
+.timeline{position:relative;display:grid;gap:clamp(36px,5vw,64px);padding-left:clamp(32px,6vw,90px)}
+.tl-rail,.tl-prog{position:absolute;left:clamp(8px,2vw,30px);top:8px;bottom:8px;width:2px;border-radius:2px}
+.tl-rail{background:var(--line)}
+.tl-prog{background:linear-gradient(180deg,var(--ruby),var(--elixir));transform-origin:50% 0;transform:scaleY(0)}
+.job{position:relative;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,2fr);gap:12px clamp(24px,4vw,64px)}
+.job::before{content:"";position:absolute;left:calc(-1 * clamp(32px,6vw,90px) + clamp(8px,2vw,30px) - 6px);top:10px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid #444;transition:border-color .4s,box-shadow .4s,background .4s}
+.job.on::before{border-color:var(--elixir);background:var(--elixir);box-shadow:0 0 0 6px rgba(164,123,255,.15),0 0 24px var(--elixir)}
+.job-when{font:500 13px/1.5 var(--mono);color:var(--muted)}
+.job-when b{display:block;margin-bottom:6px;font:700 clamp(20px,2vw,26px)/1.15 var(--display);letter-spacing:-.02em;color:var(--text)}
+.job-when .now{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:5px 9px;border-radius:999px;background:rgba(59,232,168,.1);color:var(--live);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.job-body h3{margin:0 0 10px;font:600 18px/1.3 var(--body)}
+.job-body h3 span{color:var(--muted);font-weight:500}
+.job-body>p{margin:0 0 16px;color:#BDBAB4;max-width:62ch}
+.job-body ul{margin:0 0 18px;padding:0;list-style:none;display:grid;gap:10px}
+.job-body li{position:relative;padding-left:24px;color:#D9D5CF;max-width:66ch}
+.job-body li::before{content:"";position:absolute;left:0;top:.62em;width:12px;height:2px;background:var(--grad)}
+.job-body li b{color:var(--text);font-weight:600}
+.tools{display:flex;flex-wrap:wrap;gap:6px}
+.tools span{padding:6px 10px;border-radius:8px;border:1px solid var(--line);font:400 12px/1 var(--mono);color:#ADA9A3}
+@media (max-width:820px){.job{grid-template-columns:1fr}}
+.edu{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:clamp(60px,8vw,100px)}
+@media (max-width:820px){.edu{grid-template-columns:1fr}}
+.edu div{padding:22px;border-radius:18px;border:1px dashed #333;min-width:0}
+.edu small{font:500 12px/1 var(--mono);color:var(--elixir);letter-spacing:.08em}
+.edu b{display:block;margin:10px 0 4px;font:600 17px/1.3 var(--body)}
+.edu span{font-size:14px;color:var(--muted)}
+
+/* ---------- PROJECTS ---------- */
+.projects{padding-bottom:0}
+.proj-viewport{overflow:hidden}
+.proj-track{display:flex;gap:clamp(20px,3vw,40px);padding-inline:var(--gutter);padding-bottom:clamp(90px,14vw,170px);will-change:transform}
+.proj{flex:0 0 min(88vw,1080px);display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(24px,3.5vw,56px);align-items:center;padding:clamp(20px,2.5vw,36px);border-radius:28px;border:1px solid var(--line);background:linear-gradient(160deg,#161617,#0F0F10)}
+.proj-n{font:500 12px/1 var(--mono);color:var(--muted);letter-spacing:.12em}
+.proj h3{margin:14px 0 14px;font:800 clamp(28px,3.4vw,48px)/1 var(--display);letter-spacing:-.035em;text-wrap:balance}
+.proj p{margin:0 0 18px;color:#BDBAB4;max-width:46ch}
+.proj .impact{display:flex;align-items:baseline;gap:12px;margin:0 0 20px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+.proj .impact b{font:800 30px/1 var(--display);letter-spacing:-.03em}
+.proj .impact span{font-size:13px;color:var(--muted)}
+@media (max-width:899px){
+  .proj-track{flex-direction:column;padding-inline:var(--gutter)}
+  .proj{flex-basis:auto;grid-template-columns:1fr}
+}
+
+/* browser mockups */
+.mock{position:relative;border-radius:16px;background:#111113;border:1px solid #2C2C2F;box-shadow:0 40px 80px rgba(0,0,0,.55);overflow:hidden;transform-style:preserve-3d;will-change:transform}
+.mock-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;border-bottom:1px solid #232326;background:#151517}
+.mock-bar i{width:9px;height:9px;border-radius:50%;background:#2E2E31}
+.mock-bar span{flex:1;margin-left:10px;padding:5px 10px;border-radius:7px;background:#0E0E10;font:400 11px/1 var(--mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mock-body{position:relative;aspect-ratio:16/10;max-width:100%;padding:14px;overflow:hidden}
+.reveal-mask{position:absolute;inset:0;background:var(--grad);transform-origin:100% 50%;z-index:5;pointer-events:none}
+/* video */
+.vgrid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px;height:calc(100% - 46px)}
+.vtile{position:relative;border-radius:10px;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle at 30% 30%,var(--t1),var(--t2))}
+.vtile b{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.35);font:700 15px/1 var(--body)}
+.vtile small{position:absolute;left:8px;bottom:7px;padding:3px 7px;border-radius:5px;background:rgba(0,0,0,.45);font:500 10px/1 var(--body)}
+.vtile.speak{box-shadow:inset 0 0 0 2px var(--live)}
+.vbar{display:flex;justify-content:center;gap:8px;margin-top:10px}
+.vbar i{width:32px;height:32px;border-radius:50%;background:#26262A;display:grid;place-items:center}
+.vbar i.end{background:var(--ruby);width:46px;border-radius:16px}
+.livepill{position:absolute;top:22px;left:22px;z-index:2;display:flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;background:rgba(0,0,0,.6);font:500 10px/1 var(--mono);letter-spacing:.08em}
+.livepill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ruby)}
+/* map */
+.map{position:relative;height:100%;border-radius:10px;overflow:hidden;background:#101318}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.map .panel{position:absolute;right:10px;top:10px;width:42%;padding:10px 12px;border-radius:10px;background:rgba(17,17,19,.92);border:1px solid #2C2C2F;font:400 10.5px/1.6 var(--mono);color:#BDB9B3}
+.map .panel b{display:block;font:600 11px/1 var(--body);color:var(--text);margin-bottom:6px}
+.map .panel .q{color:var(--elixir)}
+/* church */
+.app2{display:grid;grid-template-columns:30% 1fr;gap:10px;height:100%}
+.side{border-radius:10px;background:#18181B;padding:10px;display:grid;align-content:start;gap:7px}
+.side span{height:22px;border-radius:6px;background:#222226}
+.side span.on{background:rgba(164,123,255,.25)}
+.side span:first-child{height:26px;background:var(--grad);opacity:.85}
+.main2{display:grid;grid-template-rows:auto auto 1fr;gap:9px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpis div{border-radius:9px;background:#18181B;padding:8px 10px;font:500 9px/1.3 var(--mono);color:var(--muted)}
+.kpis b{display:block;font:700 17px/1.2 var(--display);color:var(--text)}
+.msg{display:grid;gap:6px;align-content:start;border-radius:10px;background:#141c18;padding:10px}
+.msg .bub{max-width:80%;padding:7px 10px;border-radius:10px 10px 10px 3px;background:#1F2A24;font:400 10.5px/1.4 var(--body);color:#D9E8DF}
+.msg .bub.me{margin-left:auto;border-radius:10px 10px 3px 10px;background:#1E5D46}
+.msg small{font:500 9px/1 var(--mono);color:#6EBB97}
+.rows2{display:grid;gap:6px}
+.rows2 span{height:16px;border-radius:5px;background:#18181B}
+/* live dashboard */
+.tv{display:grid;grid-template-columns:1.4fr 1fr;gap:10px;height:100%}
+.bars{display:flex;align-items:flex-end;gap:7px;padding:12px;border-radius:10px;background:#16161A}
+.bars i{flex:1;border-radius:5px 5px 2px 2px;background:var(--grad);transform-origin:50% 100%}
+.lead{display:grid;gap:7px;align-content:start;padding:10px;border-radius:10px;background:#16161A;font:500 10.5px/1 var(--body)}
+.lead div{display:flex;justify-content:space-between;padding:7px 8px;border-radius:7px;background:#1E1E22}
+.lead div b{font-family:var(--mono);color:var(--live)}
+.pis{display:flex;gap:6px;margin-top:4px}
+.pis span{flex:1;padding:6px 4px;border-radius:6px;border:1px solid #2C2C2F;text-align:center;font:500 9px/1 var(--mono);color:var(--live)}
+
+/* ---------- CONTACT ---------- */
+.contact{padding-bottom:clamp(60px,8vw,100px);overflow:hidden}
+.contact .h2{font-size:clamp(48px,10vw,168px);line-height:.9}
+.contact-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:center;margin-top:clamp(40px,6vw,80px)}
+@media (max-width:820px){.contact-grid{grid-template-columns:1fr}}
+.contact-copy{margin:0;max-width:46ch;font-size:clamp(16px,1.4vw,19px);color:#BDBAB4}
+.git{position:relative;width:clamp(180px,20vw,240px);aspect-ratio:1;max-width:100%}
+.git-btn{position:absolute;inset:0;border-radius:50%;border:0;background:var(--grad);color:#0D0D0D;font:800 clamp(18px,1.8vw,24px)/1.05 var(--display);letter-spacing:-.02em;cursor:pointer;display:grid;place-items:center;text-align:center;box-shadow:0 30px 80px rgba(255,59,92,.25),0 0 0 0 rgba(164,123,255,.4);will-change:transform}
+.git-btn span{display:block;font:500 11px/1 var(--mono);letter-spacing:.12em;margin-top:8px;opacity:.7}
+.contact-card{margin-top:40px;display:none;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.contact-card.open{display:grid}
+@media (max-width:820px){.contact-card{grid-template-columns:1fr}}
+.cc{position:relative;padding:22px;border-radius:20px;border:1px solid var(--line);background:var(--bg-2);display:grid;gap:14px;min-width:0}
+.cc small{font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.cc .val{font:600 clamp(16px,1.5vw,19px)/1.3 var(--body);word-break:break-all;user-select:all}
+.cc .row{display:flex;gap:8px;flex-wrap:wrap}
+.socials{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.close-card{justify-self:start}
+footer{border-top:1px solid var(--line);padding-block:28px calc(28px + env(safe-area-inset-bottom,0px))}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font:400 13px/1.5 var(--mono);color:var(--muted)}
+
+/* ---------- motion prefs ---------- */
+.js .will-reveal{visibility:hidden}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .js .will-reveal{visibility:visible}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+
+<div class="bg-fx" aria-hidden="true"><div class="blob a"></div><div class="blob b"></div><div class="grain"></div></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="Allef Gomes, back to top"><i>AG</i>Allef Gomes</a>
+    <ul>
+      <li><a href="#stack"><span>01</span>Stack</a></li>
+      <li><a href="#experience"><span>02</span>Experience</a></li>
+      <li><a href="#projects"><span>03</span>Projects</a></li>
+      <li><a href="#contact"><span>04</span>Contact</a></li>
+      <li><a href="/blog/"><span>05</span>Blog</a></li>
+    </ul>
+    <a class="btn sm solid magnetic" href="#contact">Get in touch</a>
+  </div>
+  <div class="progress" id="progress"></div>
+</header>
+
+<main id="top">
+  <!-- ================= SCENE 1 · HERO ================= -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow will-reveal"><span class="dot" aria-hidden="true"></span><span>Senior Software Engineer · Full-Stack · Brazil</span></p>
+        <p class="hero-name will-reveal">Allef Gomes</p>
+        <h1 class="hero-title will-reveal" id="heroTitle">Real-time systems, built to stay in production.</h1>
+        <p class="hero-sub will-reveal">~9 years designing, building and running production web systems end to end. <strong>Ruby on Rails, Elixir/Phoenix and React</strong>, backed by CI/CD and automated tests so releases stay boring.</p>
+        <div class="hero-cta will-reveal">
+          <a class="btn solid magnetic" href="#projects">See the work
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn magnetic" href="#contact">Get in touch</a>
+        </div>
+        <div class="chips">
+          <span class="chip will-reveal" style="--c:var(--ruby)"><i></i>Ruby on Rails</span>
+          <span class="chip will-reveal" style="--c:var(--elixir)"><i></i>Elixir / Phoenix</span>
+          <span class="chip will-reveal" style="--c:#61DAFB"><i></i>React + TypeScript</span>
+          <span class="chip will-reveal" style="--c:var(--live)"><i></i>WebRTC / WebSocket</span>
+        </div>
+      </div>
+
+      <div class="term will-reveal" id="term" aria-label="Deploy log illustration">
+        <div class="term-bar"><i></i><i></i><i></i><span>~/prod — deploy</span></div>
+        <div class="term-body">
+          <div class="tl-line"><span><span class="p">$</span> git push origin main</span></div>
+          <div class="tl-line"><span>▸ rspec · mix test</span><span class="ok">passed ✓</span></div>
+          <div class="tl-line"><span>▸ coverage</span><span class="ok">~90% ✓</span></div>
+          <div class="tl-line"><span>▸ docker build</span><span class="ok">done ✓</span></div>
+          <div class="tl-line"><span>▸ jenkins pipeline</span><span class="ok">green ✓</span></div>
+          <div class="tl-line"><span>▸ deploy production</span><span class="ok">live ✓</span></div>
+          <div class="tl-line live"><span><b>●</b> video platform</span><span><span id="termCount">6,000</span>+ meetings / month</span></div>
+          <div class="tl-line"><span><span class="p">$</span> <span class="caret"></span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marquee">
+      <span><b>Ruby on Rails</b><em>✦</em>Hotwire<em>✦</em><b>Elixir</b><em>✦</em>Phoenix LiveView<em>✦</em><b>React</b><em>✦</em>TypeScript<em>✦</em><b>WebRTC</b><em>✦</em>PostgreSQL<em>✦</em><b>PostGIS</b><em>✦</em>Docker<em>✦</em><b>CI/CD</b><em>✦</em>TDD<em>✦</em></span>
+      <span><b>Ruby on Rails</b><em>✦</em>Hotwire<em>✦</em><b>Elixir</b><em>✦</em>Phoenix LiveView<em>✦</em><b>React</b><em>✦</em>TypeScript<em>✦</em><b>WebRTC</b><em>✦</em>PostgreSQL<em>✦</em><b>PostGIS</b><em>✦</em>Docker<em>✦</em><b>CI/CD</b><em>✦</em>TDD<em>✦</em></span>
+    </div>
+  </div>
+
+  <!-- ================= SCENE 2 · STACK ================= -->
+  <section id="stack">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="kicker"><b>01</b> Stack & skills</p><h2 class="h2 split">Tools I ship with.</h2></div>
+        <p class="will-reveal fade">Two ecosystems I know deeply, plus the delivery practices that keep them healthy in production.</p>
+      </div>
+
+      <div class="bento">
+        <article class="card c-7 will-reveal">
+          <div class="card-top">
+            <div><p class="card-label">Primary ecosystem</p><h3>Ruby on Rails</h3></div>
+            <span class="glyph" style="color:var(--ruby)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 3h10l4 6-9 12L3 9z"/><path d="M3 9h18M12 21L8 9l4-6 4 6z"/></svg></span>
+          </div>
+          <div class="badges">
+            <span class="badge k">Ruby on Rails</span><span class="badge k">Hotwire</span><span class="badge k">Stimulus</span><span class="badge k">ActiveRecord</span><span class="badge">REST APIs</span>
+          </div>
+          <pre class="code"><span class="c"># Hotwire: server-rendered, real-time UI</span>
+<span class="k">class</span> <span class="f">Meeting</span> &lt; ApplicationRecord
+  broadcasts_to <span class="s">->(m) { [m.room, :participants] }</span>
+<span class="k">end</span></pre>
+        </article>
+
+        <article class="card c-5 will-reveal">
+          <div class="card-top">
+            <div><p class="card-label">In production</p><h3>Elixir / Phoenix</h3></div>
+            <span class="glyph" style="color:var(--elixir)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2c3 4 6 8.5 6 12.5A6 6 0 0 1 6 14.5C6 10.5 9 6 12 2z"/></svg></span>
+          </div>
+          <div class="badges">
+            <span class="badge e">Elixir</span><span class="badge e">Phoenix</span><span class="badge e">LiveView</span><span class="badge">PostgreSQL</span>
+          </div>
+          <p class="feature-note">Two systems built with Elixir currently running in production, including a church management platform integrated with the WhatsApp Business API.</p>
+        </article>
+
+        <article class="card c-6 will-reveal">
+          <div class="card-top"><div><p class="card-label">Languages</p><h3>Polyglot by necessity</h3></div></div>
+          <div class="badges">
+            <span class="badge k">Ruby</span><span class="badge e">Elixir</span><span class="badge">JavaScript</span><span class="badge">TypeScript</span><span class="badge">Node.js</span><span class="badge">Java</span><span class="badge">.NET</span>
+          </div>
+        </article>
+
+        <article class="card c-6 will-reveal">
+          <div class="card-top"><div><p class="card-label">Frameworks</p><h3>Front to back</h3></div></div>
+          <div class="badges">
+            <span class="badge">React</span><span class="badge k">Rails</span><span class="badge e">Phoenix</span><span class="badge e">LiveView</span><span class="badge">Quarkus</span><span class="badge">React Native</span><span class="badge">Flutter</span>
+          </div>
+        </article>
+
+        <article class="card c-4 will-reveal">
+          <div class="card-top"><div><p class="card-label">Real-time</p><h3>Live by default</h3></div>
+            <span class="glyph" style="color:var(--live)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 12h4l3-7 4 14 3-7h6"/></svg></span></div>
+          <div class="badges"><span class="badge">WebRTC</span><span class="badge">WebSocket</span><span class="badge">Live dashboards</span></div>
+        </article>
+
+        <article class="card c-4 will-reveal">
+          <div class="card-top"><div><p class="card-label">Data</p><h3>Relational + spatial</h3></div>
+            <span class="glyph" style="color:#61DAFB"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5.5" rx="7.5" ry="3"/><path d="M4.5 5.5v13c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-13M4.5 12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3"/></svg></span></div>
+          <div class="badges"><span class="badge">PostgreSQL</span><span class="badge">PostGIS</span><span class="badge">Oracle</span><span class="badge">MySQL</span></div>
+        </article>
+
+        <article class="card c-4 will-reveal">
+          <div class="card-top"><div><p class="card-label">Delivery</p><h3>Ship it safely</h3></div>
+            <span class="glyph" style="color:var(--ruby)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></span></div>
+          <div class="badges"><span class="badge">Docker</span><span class="badge">Jenkins</span><span class="badge">CI/CD</span><span class="badge">TDD</span><span class="badge">DevOps</span><span class="badge">Jira API</span></div>
+        </article>
+
+        <article class="card c-12 will-reveal">
+          <div class="card-top"><div><p class="card-label">How I work</p><h3>Practices & strengths</h3></div></div>
+          <div class="badges">
+            <span class="badge">Code reviews</span><span class="badge">Mentoring</span><span class="badge">Scrum / Kanban</span><span class="badge">Automated testing</span><span class="badge">Legacy integration</span><span class="badge">Debugging</span><span class="badge">Ownership & accountability</span><span class="badge">Stakeholder communication</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 3 · EXPERIENCE ================= -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="kicker"><b>02</b> Experience & impact</p><h2 class="h2 split">Nine years in production.</h2></div>
+        <p class="will-reveal fade">From freelance mobile apps to citizen-facing platforms for Fortaleza City Hall.</p>
+      </div>
+
+      <div class="metrics">
+        <div class="metric will-reveal"><div class="num"><small>~</small><span class="count" data-to="9">0</span></div><p><b>Years</b> designing, building and maintaining production web systems.</p></div>
+        <div class="metric will-reveal"><div class="num"><span class="count" data-to="6000" data-sep="1">0</span><sup>+</sup></div><p><b>Meetings a month</b> on the video platform I architected for the City Hall.</p></div>
+        <div class="metric will-reveal"><div class="num"><small>~</small><span class="count" data-to="90">0</span><sup>%</sup></div><p><b>Unit test coverage</b> reached at Lampp-IT, with automated CI/CD pipelines.</p></div>
+        <div class="metric will-reveal"><div class="num"><span class="count" data-to="2">0</span></div><p><b>Elixir/Phoenix systems</b> I built that are running in production today.</p></div>
+      </div>
+
+      <div class="timeline" id="timeline">
+        <div class="tl-rail"></div><div class="tl-prog" id="tlProg"></div>
+
+        <article class="job">
+          <div class="job-when"><b>Fortaleza City Hall</b>Sep 2020 – Present<br><span class="now">● Current</span></div>
+          <div class="job-body">
+            <h3>Full-Stack Developer</h3>
+            <p>Lead development of scalable citizen-facing and internal web systems, focused on reliability, performance and measurable operational gains.</p>
+            <ul>
+              <li><b>Video chat platform:</b> architected and built real-time video conferencing for customer–company problem solving, supporting 6,000+ meetings a month with consistent uptime.</li>
+              <li><b>Geolocation platform:</b> PostGIS-powered storage, querying and visualization of geospatial data at scale.</li>
+              <li>Delivered multiple production systems in Rails, React (TypeScript) and .NET.</li>
+            </ul>
+            <div class="tools"><span>Rails</span><span>Hotwire/Stimulus</span><span>React</span><span>.NET</span><span>WebRTC</span><span>WebSocket</span><span>Docker</span><span>PostGIS</span><span>CI/CD</span></div>
+          </div>
+        </article>
+
+        <article class="job">
+          <div class="job-when"><b>Lampp-IT</b>Apr 2019 – Aug 2020</div>
+          <div class="job-body">
+            <h3>Full-Stack Developer</h3>
+            <p>Web and mobile systems for state organizations, often on legacy codebases and unfamiliar stacks.</p>
+            <ul>
+              <li>Reached <b>~90% unit test coverage</b> and implemented automated CI/CD pipelines to improve reliability and release speed.</li>
+              <li>Shipped across React Native, Flutter, Java 6 and legacy systems.</li>
+              <li>Built and maintained CRUD systems of varying complexity for public-sector clients.</li>
+            </ul>
+            <div class="tools"><span>Rails</span><span>React</span><span>TypeScript</span><span>Flutter</span><span>React Native</span><span>Java 6</span><span>Jenkins</span></div>
+          </div>
+        </article>
+
+        <article class="job">
+          <div class="job-when"><b>Rubert Tecnologia</b>Nov 2018 – Apr 2019</div>
+          <div class="job-body">
+            <h3>Ruby on Rails Developer</h3>
+            <ul>
+              <li>Built a <b>real-time event performance platform</b> aggregating sales, agreements and metrics into live dashboards on large screens.</li>
+              <li>Distributed architecture with multiple Raspberry Pi devices synced to a central web app.</li>
+            </ul>
+            <div class="tools"><span>Rails</span><span>React</span><span>Docker</span><span>Raspberry Pi</span></div>
+          </div>
+        </article>
+
+        <article class="job">
+          <div class="job-when"><b>3IT Consultoria</b>Jan 2018 – Oct 2018</div>
+          <div class="job-body">
+            <h3>Junior Developer</h3>
+            <ul>
+              <li>Rails features with database modeling and REST endpoints; responsive UIs in AngularJS and Angular.</li>
+              <li>Hybrid mobile releases with Ionic; Joomla and WordPress theme and plugin work.</li>
+            </ul>
+            <div class="tools"><span>Rails</span><span>Angular</span><span>Ionic</span><span>PostgreSQL</span><span>PHP</span></div>
+          </div>
+        </article>
+
+        <article class="job">
+          <div class="job-when"><b>Freelance</b>Sep 2016 – Feb 2018</div>
+          <div class="job-body">
+            <h3>Mobile Developer</h3>
+            <ul>
+              <li>End-to-end Android apps for a healthcare clinic, a car rental and sales business, and a hospitality client, from requirements to handoff.</li>
+            </ul>
+            <div class="tools"><span>Ionic</span><span>Angular</span><span>PHP</span><span>MySQL</span></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="edu">
+        <div class="will-reveal"><small>2022</small><b>MBA in Agile Software Engineering</b><span>IGTI</span></div>
+        <div class="will-reveal"><small>2021</small><b>Software Architecture Bootcamp</b><span>IGTI</span></div>
+        <div class="will-reveal"><small>2016 – 2019</small><b>Degree in Internet Systems</b><span>UNIGRANDE</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 4 · PROJECTS ================= -->
+  <section id="projects" class="projects">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="kicker"><b>03</b> Key projects</p><h2 class="h2 split">Built, shipped, still running.</h2></div>
+        <p class="will-reveal fade">Interfaces are illustrative recreations. Hover a screen to tilt it.</p>
+      </div>
+    </div>
+    <div class="proj-viewport">
+      <div class="proj-track" id="projTrack">
+
+        <article class="proj">
+          <div class="mock" data-tilt>
+            <div class="mock-bar"><i></i><i></i><i></i><span>atendimento.fortaleza.ce.gov.br/sala</span></div>
+            <div class="mock-body">
+              <span class="livepill">LIVE · 12:48</span>
+              <div class="vgrid">
+                <div class="vtile speak" style="--t1:#5B3BB8;--t2:#1D1638"><b>CL</b><small>Citizen</small></div>
+                <div class="vtile" style="--t1:#B8334D;--t2:#2A1218"><b>AT</b><small>Agent</small></div>
+                <div class="vtile" style="--t1:#2D7F67;--t2:#0F2620"><b>SP</b><small>Specialist</small></div>
+                <div class="vtile" style="--t1:#3A4C7A;--t2:#141A2A"><b>+1</b><small>Screen share</small></div>
+              </div>
+              <div class="vbar"><i></i><i></i><i></i><i class="end"></i></div>
+              <div class="reveal-mask"></div>
+            </div>
+          </div>
+          <div>
+            <span class="proj-n">01 / Fortaleza City Hall · WebRTC</span>
+            <h3>Real-time video service platform</h3>
+            <p>Architected and built video conferencing for customer–company problem solving, cutting client costs and speeding up issue resolution.</p>
+            <div class="impact"><b class="grad-text">6,000+</b><span>meetings a month with consistent uptime</span></div>
+            <div class="tools"><span>WebRTC</span><span>WebSocket</span><span>Rails</span><span>Hotwire</span><span>Docker</span></div>
+          </div>
+        </article>
+
+        <article class="proj">
+          <div class="mock" data-tilt>
+            <div class="mock-bar"><i></i><i></i><i></i><span>geo.fortaleza.ce.gov.br/camadas</span></div>
+            <div class="mock-body">
+              <div class="map">
+                <svg viewBox="0 0 400 250" preserveAspectRatio="none" aria-hidden="true">
+                                    <path d="M0,60 C80,70 120,40 200,55 S330,90 400,70" stroke="#26303D" stroke-width="10" fill="none"/>
+                  <path d="M0,180 C90,170 160,200 240,175 S350,150 400,165" stroke="#26303D" stroke-width="8" fill="none"/>
+                  <path d="M120,0 C130,80 100,150 140,250" stroke="#26303D" stroke-width="7" fill="none"/>
+                  <path d="M260,0 C250,90 290,160 270,250" stroke="#26303D" stroke-width="6" fill="none"/>
+                  <path d="M60,110 L170,95 L210,150 L120,175 Z" fill="rgba(164,123,255,.18)" stroke="#A47BFF" stroke-width="1.5"/>
+                  <circle cx="300" cy="120" r="40" fill="rgba(255,59,92,.12)" stroke="#FF3B5C" stroke-dasharray="4 4"/>
+                  <g fill="#3BE8A8"><circle cx="95" cy="130" r="4"/><circle cx="140" cy="118" r="4"/><circle cx="160" cy="140" r="4"/><circle cx="118" cy="150" r="4"/><circle cx="295" cy="110" r="4"/><circle cx="315" cy="132" r="4"/><circle cx="285" cy="135" r="4"/></g>
+                  <g fill="#555"><circle cx="40" cy="40" r="3"/><circle cx="220" cy="30" r="3"/><circle cx="360" cy="210" r="3"/><circle cx="60" cy="220" r="3"/><circle cx="200" cy="220" r="3"/></g>
+                </svg>
+                <div class="panel"><b>Spatial query</b><span class="q">ST_DWithin</span>(geom, point, 500)<br>→ 3 features in radius<br><span class="q">ST_Contains</span>(zone, geom)<br>→ 4 features in zone</div>
+              </div>
+              <div class="reveal-mask"></div>
+            </div>
+          </div>
+          <div>
+            <span class="proj-n">02 / Fortaleza City Hall · PostGIS</span>
+            <h3>Geolocation platform</h3>
+            <p>A PostGIS-powered platform for storing, querying and visualizing geospatial data at scale for city operations.</p>
+            <div class="impact"><b class="grad-text">PostGIS</b><span>spatial storage, queries and visualization</span></div>
+            <div class="tools"><span>PostgreSQL</span><span>PostGIS</span><span>Rails</span><span>React</span><span>TypeScript</span></div>
+          </div>
+        </article>
+
+        <article class="proj">
+          <div class="mock" data-tilt>
+            <div class="mock-bar"><i></i><i></i><i></i><span>igreja.app/painel</span></div>
+            <div class="mock-body">
+              <div class="app2">
+                <div class="side"><span></span><span class="on"></span><span></span><span></span><span></span></div>
+                <div class="main2">
+                  <div class="kpis"><div><b>Members</b>active</div><div><b>Groups</b>weekly</div><div><b>Events</b>registrations</div></div>
+                  <div class="msg"><small>WhatsApp Business API · automated</small><div class="bub">Reminder: youth group meets tonight at 7 pm.</div><div class="bub me">Confirmed ✓</div></div>
+                  <div class="rows2"><span></span><span></span></div>
+                </div>
+              </div>
+              <div class="reveal-mask"></div>
+            </div>
+          </div>
+          <div>
+            <span class="proj-n">03 / Side work · Elixir / Phoenix</span>
+            <h3>Church & event management systems</h3>
+            <p>Two production platforms: church operations with WhatsApp Business API messaging, and event registrations with operational workflows.</p>
+            <div class="impact"><b class="grad-text">2 systems</b><span>built in Elixir and running in production</span></div>
+            <div class="tools"><span>Elixir</span><span>Phoenix</span><span>PostgreSQL</span><span>Docker</span><span>CI/CD</span></div>
+          </div>
+        </article>
+
+        <article class="proj">
+          <div class="mock" data-tilt>
+            <div class="mock-bar"><i></i><i></i><i></i><span>evento.live/telao</span></div>
+            <div class="mock-body">
+              <div class="tv">
+                <div class="bars" id="bars"><i style="height:42%"></i><i style="height:66%"></i><i style="height:51%"></i><i style="height:88%"></i><i style="height:73%"></i><i style="height:95%"></i><i style="height:60%"></i></div>
+                <div class="lead"><div>Sales <b>live</b></div><div>Agreements <b>live</b></div><div>Metrics <b>live</b></div>
+                  <div class="pis"><span>Pi ●</span><span>Pi ●</span><span>Pi ●</span></div></div>
+              </div>
+              <div class="reveal-mask"></div>
+            </div>
+          </div>
+          <div>
+            <span class="proj-n">04 / Rubert Tecnologia · Real-time</span>
+            <h3>Live event performance dashboards</h3>
+            <p>Aggregated sales, agreements and metrics into live dashboards on large screens, driven by Raspberry Pi devices synced to a central web app.</p>
+            <div class="impact"><b class="grad-text">Synced</b><span>distributed Raspberry Pi screens, one source of truth</span></div>
+            <div class="tools"><span>Rails</span><span>React</span><span>Docker</span><span>Raspberry Pi</span></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 5 · CONTACT ================= -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <p class="kicker"><b>04</b> Contact</p>
+      <h2 class="h2 split" id="ctaHead">Let’s build something that ships.</h2>
+      <div class="contact-grid">
+        <div>
+          <p class="contact-copy will-reveal fade">Senior full-stack engineer with an ownership mindset. I like hard real-time problems, legacy integrations and teams that care about tests. Based in Brazil, open to remote work.</p>
+          <div class="socials">
+            <a class="btn magnetic will-reveal" href="https://www.linkedin.com/in/allef-gomes/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.05c.53-1 1.84-2.05 3.8-2.05 4.05 0 4.8 2.67 4.8 6.13V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.95 1.32-1.95 2.69V21h-4z"/></svg>LinkedIn</a>
+            <button type="button" class="btn magnetic will-reveal" data-copy="allefgalmeida@gmail.com">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Copy email</span></button>
+            <button type="button" class="btn magnetic will-reveal" data-copy="+55 85 99823-7787">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span>Copy phone</span></button>
+          </div>
+        </div>
+        <div class="git will-reveal" id="git">
+          <button type="button" class="git-btn" id="gitBtn" aria-expanded="false" aria-controls="contactCard">Get in<br>touch<span>CLICK ↘</span></button>
+        </div>
+      </div>
+
+      <div class="contact-card" id="contactCard" aria-live="polite">
+        <div class="cc"><small>Email</small><span class="val" id="emailVal">allefgalmeida@gmail.com</span><div class="row"><button type="button" class="btn sm solid" data-copy="allefgalmeida@gmail.com"><span>Copy email</span></button></div></div>
+        <div class="cc"><small>Phone / WhatsApp</small><span class="val">+55 (85) 99823-7787</span><div class="row"><button type="button" class="btn sm" data-copy="+55 85 99823-7787"><span>Copy number</span></button></div></div>
+        <div class="cc"><small>LinkedIn</small><span class="val">linkedin.com/in/allef-gomes</span><div class="row"><a class="btn sm" href="https://www.linkedin.com/in/allef-gomes/" target="_blank" rel="noopener">Open profile ↗</a><button type="button" class="btn sm close-card" id="closeCard">Close</button></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 Allef Gomes · <a href="/blog/">Blog</a></span><span>Senior Software Engineer · Full-Stack · Brazil</span></div>
+</footer>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasGSAP = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
+  const showAll = () => document.querySelectorAll('.will-reveal').forEach(el => el.style.visibility = 'visible');
+
+  /* ---------- copy to clipboard (works without GSAP too) ---------- */
+  document.querySelectorAll('[data-copy]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = btn.dataset.copy, label = btn.querySelector('span') || btn, prev = label.textContent;
+      const done = ok => {
+        label.textContent = ok ? 'Copied ✓' : text;
+        if (hasGSAP && !reduce) gsap.fromTo(btn, { scale: .94 }, { scale: 1, duration: .5, ease: 'back.out(3)' });
+        setTimeout(() => { label.textContent = prev; }, 1800);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => done(true), () => done(false));
+      else done(false);
+    });
+  });
+
+  /* ---------- get in touch toggle ---------- */
+  const gitBtn = document.getElementById('gitBtn'), card = document.getElementById('contactCard'), closeBtn = document.getElementById('closeCard');
+  function openCard() {
+    card.classList.add('open'); gitBtn.setAttribute('aria-expanded', 'true');
+    if (hasGSAP && !reduce) {
+      gsap.timeline()
+        .to(gitBtn, { scale: .85, duration: .15, ease: 'power2.in' })
+        .to(gitBtn, { scale: 1, rotation: 360, duration: .7, ease: 'back.out(1.7)' })
+        .fromTo(card.children, { y: 60, autoAlpha: 0, rotationX: -25, transformPerspective: 800 },
+          { y: 0, autoAlpha: 1, rotationX: 0, duration: .8, ease: 'power4.out', stagger: .08 }, .1)
+        .add(() => ScrollTrigger.refresh());
+    }
+    card.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
+  }
+  function closeCard() {
+    const finish = () => { card.classList.remove('open'); gitBtn.setAttribute('aria-expanded', 'false'); gitBtn.focus(); if (hasGSAP) ScrollTrigger.refresh(); };
+    if (hasGSAP && !reduce) gsap.to(card.children, { y: 30, autoAlpha: 0, duration: .35, stagger: .05, ease: 'power2.in', onComplete: finish });
+    else finish();
+  }
+  gitBtn.addEventListener('click', () => card.classList.contains('open') ? closeCard() : openCard());
+  closeBtn.addEventListener('click', closeCard);
+
+  if (!hasGSAP || reduce) {
+    showAll();
+    document.querySelectorAll('.count').forEach(el => el.textContent = (+el.dataset.to).toLocaleString('en-US'));
+    document.querySelectorAll('.job').forEach(j => j.classList.add('on'));
+    document.querySelectorAll('.reveal-mask').forEach(m => m.remove());
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.defaults({ ease: 'power4.out', duration: 1 });
+
+  /* ---------- text splitting ---------- */
+  let heroSplit, headSplits = [];
+  function splitHero() {
+    heroSplit = new SplitType('#heroTitle', { types: 'lines,words' });
+    heroSplit.words.forEach(w => { if (/Real-time|production/i.test(w.textContent)) w.classList.add('hl'); });
+  }
+  function tintCta() {
+    document.querySelectorAll('#ctaHead .word').forEach(w => {
+      if (w.textContent === 'that') w.style.color = 'var(--ruby)';
+      if (w.textContent.startsWith('ships')) w.style.color = 'var(--elixir)';
+    });
+  }
+  function splitHeads() {
+    headSplits = [...document.querySelectorAll('.h2.split')].map(el => new SplitType(el, { types: 'lines,words,chars' }));
+    tintCta();
+  }
+
+  function init() {
+    splitHero(); splitHeads();
+
+    /* ===== SCENE 1 · HERO ===== */
+    const q = s => document.querySelector(s);
+    gsap.set('.hero .will-reveal', { visibility: 'visible' });
+    const hero = gsap.timeline({ delay: .15 });
+    hero.from('.eyebrow', { y: 20, autoAlpha: 0, duration: .8 })
+      .from('.hero-name', { y: 20, autoAlpha: 0, duration: .8 }, '-=.6')
+      .from(heroSplit.words, { yPercent: 115, rotation: 6, transformOrigin: '0% 100%', duration: 1.1, stagger: .08 }, '-=.55')
+      .from('.hero-sub', { y: 30, autoAlpha: 0, duration: .9 }, '-=.7')
+      .from('.hero-cta .btn', { y: 24, autoAlpha: 0, duration: .8, stagger: .08 }, '-=.7')
+      .from('.chips .chip', { y: 16, scale: .8, autoAlpha: 0, duration: .7, stagger: .08, ease: 'back.out(1.7)' }, '-=.6')
+      .from('#term', { y: 80, rotationX: 18, rotationY: -12, transformPerspective: 1200, autoAlpha: 0, duration: 1.3 }, .5)
+      .from('#term .tl-line', { x: -14, autoAlpha: 0, duration: .45, stagger: .16, ease: 'power3.out' }, 1.2)
+      .from('#term .ok', { scale: .4, autoAlpha: 0, duration: .45, stagger: .16, ease: 'back.out(1.7)' }, 1.45);
+    const tc = { v: 0 }, tcEl = q('#termCount');
+    hero.to(tc, { v: 6000, duration: 1.6, ease: 'power3.out', onUpdate: () => tcEl.textContent = Math.round(tc.v).toLocaleString('en-US') }, 2.1);
+
+    // hero parallax on scroll
+    gsap.to('#term', { yPercent: -18, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to('.hero-title', { yPercent: -10, autoAlpha: .25, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'center top', end: 'bottom top', scrub: true } });
+
+    // ambient glows
+    gsap.to('.blob.a', { x: '20vw', y: '30vh', duration: 18, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+    gsap.to('.blob.b', { x: '-20vw', y: '-25vh', duration: 22, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+
+    // nav progress
+    gsap.to('#progress', { scaleX: 1, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: .3 } });
+
+    // marquee
+    gsap.to('#marquee', { xPercent: -50, duration: 32, ease: 'none', repeat: -1 });
+
+    /* ===== section headings: char reveal ===== */
+    headSplits.forEach(s => {
+      gsap.from(s.chars, { yPercent: 110, rotation: 8, autoAlpha: 0, duration: 1, stagger: .018,
+        scrollTrigger: { trigger: s.elements[0], start: 'top 85%' } });
+    });
+    gsap.utils.toArray('.kicker').forEach(k => gsap.from(k, { x: -30, autoAlpha: 0, duration: .9, scrollTrigger: { trigger: k, start: 'top 88%' } }));
+    gsap.utils.toArray('.fade').forEach(el => {
+      gsap.set(el, { visibility: 'visible' });
+      gsap.from(el, { y: 30, autoAlpha: 0, duration: 1, scrollTrigger: { trigger: el, start: 'top 88%' } });
+    });
+
+    /* ===== SCENE 2 · STACK ===== */
+    const cards = gsap.utils.toArray('.bento .card');
+    gsap.set(cards, { visibility: 'visible', autoAlpha: 0, y: 70, rotationX: -12, transformPerspective: 1000 });
+    ScrollTrigger.batch(cards, {
+      start: 'top 88%', once: true,
+      onEnter: batch => {
+        gsap.to(batch, { autoAlpha: 1, y: 0, rotationX: 0, duration: 1.1, stagger: .08, overwrite: true });
+        batch.forEach((c, i) => gsap.from(c.querySelectorAll('.badge'), { y: 16, scale: .7, autoAlpha: 0, duration: .6, ease: 'back.out(1.7)', stagger: .08, delay: .25 + i * .08 }));
+      }
+    });
+    // glow follows pointer + magnetic float
+    cards.forEach(c => {
+      c.addEventListener('pointermove', e => {
+        const r = c.getBoundingClientRect();
+        c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+    gsap.utils.toArray('.badge').forEach(b => {
+      b.addEventListener('pointerenter', () => gsap.to(b, { y: -4, scale: 1.06, duration: .3, ease: 'back.out(3)' }));
+      b.addEventListener('pointerleave', () => gsap.to(b, { y: 0, scale: 1, duration: .4, ease: 'power3.out' }));
+    });
+
+    /* ===== SCENE 3 · EXPERIENCE ===== */
+    const metrics = gsap.utils.toArray('.metric');
+    gsap.set(metrics, { visibility: 'visible' });
+    gsap.from(metrics, { y: 60, autoAlpha: 0, duration: 1, stagger: .08, scrollTrigger: { trigger: '.metrics', start: 'top 85%' } });
+    gsap.utils.toArray('.count').forEach(el => {
+      const to = +el.dataset.to, o = { v: 0 };
+      ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true,
+        onEnter: () => gsap.to(o, { v: to, duration: 2.2, ease: 'power3.out', onUpdate: () => el.textContent = Math.round(o.v).toLocaleString('en-US') }) });
+    });
+    gsap.to('#tlProg', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '#timeline', start: 'top 65%', end: 'bottom 65%', scrub: .4 } });
+    gsap.utils.toArray('.job').forEach(job => {
+      ScrollTrigger.create({ trigger: job, start: 'top 65%', toggleClass: { targets: job, className: 'on' } });
+      const tl = gsap.timeline({ scrollTrigger: { trigger: job, start: 'top 82%' } });
+      tl.from(job.querySelector('.job-when'), { x: -40, autoAlpha: 0, duration: .9 })
+        .from(job.querySelectorAll('h3, .job-body > p'), { y: 24, autoAlpha: 0, duration: .8, stagger: .08 }, '<.1')
+        .from(job.querySelectorAll('li'), { y: 20, autoAlpha: 0, duration: .7, stagger: .08 }, '<.15')
+        .from(job.querySelectorAll('.tools span'), { y: 10, scale: .8, autoAlpha: 0, duration: .5, stagger: .04, ease: 'back.out(1.7)' }, '<.2');
+    });
+    const edu = gsap.utils.toArray('.edu > div');
+    gsap.set(edu, { visibility: 'visible' });
+    gsap.from(edu, { y: 40, autoAlpha: 0, duration: .9, stagger: .08, scrollTrigger: { trigger: '.edu', start: 'top 88%' } });
+
+    /* ===== SCENE 4 · PROJECTS ===== */
+    const mm = gsap.matchMedia();
+    const track = document.getElementById('projTrack');
+    const panels = gsap.utils.toArray('.proj');
+    function panelReveal(p, st) {
+      const tl = gsap.timeline({ scrollTrigger: st });
+      tl.to(p.querySelector('.reveal-mask'), { scaleX: 0, duration: 1, ease: 'power4.inOut' })
+        .from(p.querySelectorAll('.mock-body > :not(.reveal-mask)'), { scale: 1.08, duration: 1.2 }, '<.2')
+        .from(p.querySelectorAll('.proj-n, h3, p, .impact'), { y: 30, autoAlpha: 0, duration: .8, stagger: .08 }, '<')
+        .from(p.querySelectorAll('.tools span'), { y: 10, autoAlpha: 0, duration: .5, stagger: .08, ease: 'back.out(1.7)' }, '<.3');
+      const bars = p.querySelectorAll('.bars i');
+      if (bars.length) tl.from(bars, { scaleY: 0, duration: .9, stagger: .08, ease: 'back.out(1.7)' }, '<');
+      return tl;
+    }
+    mm.add('(min-width: 900px)', () => {
+      const dist = () => Math.max(0, track.scrollWidth - window.innerWidth);
+      const horiz = gsap.to(track, { x: () => -dist(), ease: 'none',
+        scrollTrigger: { trigger: '.proj-viewport', start: 'top 12%', end: () => '+=' + dist(), pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 } });
+      panels.forEach((p, i) => panelReveal(p, i === 0
+        ? { trigger: p, start: 'top 75%' }
+        : { trigger: p, containerAnimation: horiz, start: 'left 80%' }));
+    });
+    mm.add('(max-width: 899px)', () => {
+      panels.forEach(p => panelReveal(p, { trigger: p, start: 'top 80%' }));
+    });
+    // hover tilt
+    document.querySelectorAll('[data-tilt]').forEach(m => {
+      const rx = gsap.quickTo(m, 'rotationX', { duration: .6, ease: 'power3.out' });
+      const ry = gsap.quickTo(m, 'rotationY', { duration: .6, ease: 'power3.out' });
+      gsap.set(m, { transformPerspective: 1000 });
+      m.addEventListener('pointermove', e => {
+        const r = m.getBoundingClientRect();
+        ry(((e.clientX - r.left) / r.width - .5) * 14);
+        rx(-((e.clientY - r.top) / r.height - .5) * 12);
+      });
+      m.addEventListener('pointerleave', () => { rx(0); ry(0); });
+    });
+    // live loops inside mockups
+    gsap.to('.vtile.speak', { boxShadow: 'inset 0 0 0 4px #3BE8A8', duration: .6, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+    gsap.utils.toArray('#bars i').forEach((b, i) => gsap.to(b, { scaleY: () => gsap.utils.random(.55, 1.05), duration: 1.2, repeat: -1, yoyo: true, repeatRefresh: true, ease: 'sine.inOut', delay: 1.5 + i * .12 }));
+
+    /* ===== SCENE 5 · CONTACT ===== */
+    const socials = gsap.utils.toArray('.socials .btn');
+    gsap.set([...socials, '#git'], { visibility: 'visible' });
+    gsap.from(socials, { y: 30, scale: .85, autoAlpha: 0, duration: .8, stagger: .08, ease: 'back.out(1.7)', scrollTrigger: { trigger: '.socials', start: 'top 92%' } });
+    gsap.from('#git', { scale: 0, rotation: -120, duration: 1.2, ease: 'back.out(1.7)', scrollTrigger: { trigger: '#git', start: 'top 90%' } });
+    gsap.to('#gitBtn', { boxShadow: '0 30px 80px rgba(255,59,92,.35), 0 0 0 22px rgba(164,123,255,0)', duration: 1.6, repeat: -1, ease: 'power1.out' });
+
+    // magnetic buttons
+    document.querySelectorAll('.magnetic, .git-btn').forEach(b => {
+      const xTo = gsap.quickTo(b, 'x', { duration: .5, ease: 'power3.out' }), yTo = gsap.quickTo(b, 'y', { duration: .5, ease: 'power3.out' });
+      const k = b.classList.contains('git-btn') ? .35 : .25;
+      b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect(); xTo((e.clientX - r.left - r.width / 2) * k); yTo((e.clientY - r.top - r.height / 2) * k); });
+      b.addEventListener('pointerleave', () => { xTo(0); yTo(0); });
+    });
+
+    // safety: anything not yet handled becomes visible
+    gsap.set('.will-reveal', { visibility: 'visible' });
+    ScrollTrigger.refresh();
+  }
+
+  /* ---------- re-split on resize (lines change) ---------- */
+  let lastW = innerWidth, t;
+  addEventListener('resize', () => {
+    clearTimeout(t);
+    t = setTimeout(() => {
+      if (Math.abs(innerWidth - lastW) < 40) return;
+      lastW = innerWidth;
+      heroSplit && heroSplit.split();
+      heroSplit.words.forEach(w => { if (/Real-time|production/i.test(w.textContent)) w.classList.add('hl'); });
+      headSplits.forEach(s => s.split()); tintCta();
+      ScrollTrigger.refresh();
+    }, 250);
+  });
+
+  const start = () => init();
+  if (document.fonts && document.fonts.ready) Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1500))]).then(start);
+  else addEventListener('load', start);
+})();
+</script>
+</body>
+</html>
