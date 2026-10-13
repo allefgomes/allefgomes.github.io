@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "One Telegram topic per AI agent: setting up Hermes with a profile for each job"
-date: 2026-10-13 20:00:00 -0300
+date: 2026-10-12 20:00:00 -0300
 description: How I fixed a Hermes setup that was quietly using the wrong provider, and gave every Telegram topic its own specialist profile, including a private group for personal data
 img: software.jpg
 tags: [AI, Hermes, Telegram, Agents, Claude]
 ---
 
-I run [Hermes](https://hermes-agent.nousresearch.com), an agent that lives behind a Telegram bot. The idea was simple: one Telegram group for work, with a **topic for each specialist** (research, developer, marketing...), so every conversation goes to the right agent. Today I sat down to make that real, and it took a few surprises. Here is everything I did, in order.
+I run [Hermes](https://hermes-agent.nousresearch.com), an agent that lives behind a Telegram bot. The idea was simple: one Telegram group for work, with a **topic for each specialist** (research, developer, marketing...), so every conversation goes to the right agent. Yesterday I sat down to make that real, and it took a few surprises. Here is everything I did, in order.
 
 ## The problem: "why is it using Copilot?"
 

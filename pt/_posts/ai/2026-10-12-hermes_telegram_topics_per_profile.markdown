@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "Um tópico do Telegram para cada agente de IA: configurando o Hermes com um perfil para cada função"
-date: 2026-10-13 20:00:00 -0300
+date: 2026-10-12 20:00:00 -0300
 description: Como corrigi um Hermes que usava o provedor errado sem eu perceber e dei a cada tópico do Telegram um perfil especialista, incluindo um grupo privado para dados pessoais
 img: software.jpg
 tags: [AI, Hermes, Telegram, Agents, Claude]
 ---
 
-Eu uso o [Hermes](https://hermes-agent.nousresearch.com), um agente que fica por trás de um bot do Telegram. A ideia era simples: um grupo do Telegram para trabalho, com um **tópico para cada especialista** (pesquisa, desenvolvedor, marketing...), para que cada conversa vá para o agente certo. Hoje sentei para deixar isso funcionando e apareceram algumas surpresas. Aqui está tudo o que fiz, em ordem.
+Eu uso o [Hermes](https://hermes-agent.nousresearch.com), um agente que fica por trás de um bot do Telegram. A ideia era simples: um grupo do Telegram para trabalho, com um **tópico para cada especialista** (pesquisa, desenvolvedor, marketing...), para que cada conversa vá para o agente certo. Ontem sentei para deixar isso funcionando e apareceram algumas surpresas. Aqui está tudo o que fiz, em ordem.
 
 ## O problema: "por que está usando Copilot?"
 
@@ -79,7 +79,7 @@ Também defini uma ordem clara para quando um provedor falha: **Anthropic primei
 
 O agente de calendário ainda precisa do **login no Google Calendar**. Esse passo precisa do meu navegador e do meu consentimento, então é comigo. Quando funcionar, a agenda das 6h é um único cron job: `hermes cron create "0 6 * * *"`, com o fuso horário configurado para o meu.
 
-## O que eu diria a mim mesmo hoje de manhã
+## O que eu diria a mim mesmo ontem de manhã
 
 - Perfis são agentes separados. Confira as credenciais de **cada um**.
 - Reinicie o gateway certo e confirme com o PID e o log.
