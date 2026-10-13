@@ -1,87 +1,228 @@
 ---
 layout: post
-title: "Um tópico do Telegram para cada agente de IA: configurando o Hermes com um perfil para cada função"
+title: "Um tópico do Telegram para cada especialista de IA: configurando o Hermes passo a passo"
 date: 2026-10-12 20:00:00 -0300
-description: Como corrigi um Hermes que usava o provedor errado sem eu perceber e dei a cada tópico do Telegram um perfil especialista, incluindo um grupo privado para dados pessoais
+description: Como configurar o Hermes com um perfil especialista para cada tópico do Telegram, login com assinatura do Claude e um grupo privado para dados pessoais, com os arquivos de configuração e os prompts reais
 img: software.jpg
 tags: [AI, Hermes, Telegram, Agents, Claude]
 ---
 
-Eu uso o [Hermes](https://hermes-agent.nousresearch.com), um agente que fica por trás de um bot do Telegram. A ideia era simples: um grupo do Telegram para trabalho, com um **tópico para cada especialista** (pesquisa, desenvolvedor, marketing...), para que cada conversa vá para o agente certo. Ontem sentei para deixar isso funcionando e apareceram algumas surpresas. Aqui está tudo o que fiz, em ordem.
+Esta é a forma como eu uso o [Hermes](https://hermes-agent.nousresearch.com) com um tópico do Telegram para cada especialista. Cada tópico conversa com o próprio agente, com memória, instruções e modelo próprios. Os tópicos pessoais ficam em um grupo privado separado.
 
-## O problema: "por que está usando Copilot?"
+Ao final você terá:
 
-Tudo começou com um banner de inicialização que mostrava `Provider: copilot`, quando eu queria usar a minha **assinatura da Anthropic**. Investigando, achei a causa:
+- Um **grupo de trabalho** com um tópico por especialista: pesquisa, desenvolvedor, marketing, QA, analista de negócios e um orquestrador.
+- Um **grupo privado** com um assistente financeiro e um assistente de calendário.
+- A assinatura do Claude usada por login OAuth, com um modelo mais barato nos agentes pessoais.
 
-- O Hermes tem **perfis**. Cada perfil é um agente completo, com configuração, memória, sessões e credenciais próprias.
-- Cinco dos meus seis perfis estavam com `provider: copilot`. Só o `orchestrator` usava `anthropic`.
-- Trocar foi uma linha no `config.yaml` de cada perfil. Essa foi a parte fácil.
+## 1. Faça login com a sua assinatura do Claude
 
-## "Usar a assinatura, não uma API key"
+O Hermes pode usar a sua assinatura do Claude por meio de um token OAuth, em vez de uma API key paga por uso. Qualquer um dos comandos funciona:
 
-O Hermes consegue usar a assinatura do Claude por meio de um **token OAuth** (começa com `sk-ant-oat`) em vez de uma API key paga por uso. Eu já tinha um no `.env` principal, e o `hermes auth list` mostrava como credencial `oauth`. Dá para criar um com `hermes auth add anthropic --type oauth` ou com `claude setup-token`.
+```bash
+hermes auth add anthropic --type oauth
+```
 
-## O bug de verdade: as credenciais são por perfil
+ou, com o Claude Code instalado:
 
-Depois da troca, alguns tópicos continuavam com erro de conexão, enquanto o agente padrão funcionava. Os logs contaram a história: o Gemini estava sem cota, e o fallback do Copilot recusava o nome do modelo Claude. A Anthropic nem chegava a ser tentada.
+```bash
+claude setup-token
+```
 
-O motivo: **cada perfil tem o próprio `.env`**, e só o orchestrator tinha uma chave da Anthropic. Os outros cinco não tinham como se autenticar. Copiei o token para o `.env` de cada perfil e os erros acabaram.
+Se você usar o segundo, coloque o token no `.env` do perfil que vai usá-lo:
 
-Lição: quando você tem vários perfis, "funciona no padrão" não diz nada sobre os outros.
+```bash
+ANTHROPIC_TOKEN=<seu token>
+```
 
-## Reiniciar nem sempre reinicia
+Confira se o Hermes enxerga a credencial:
 
-Dois detalhes me custaram tempo:
+```bash
+hermes auth list
+```
 
-1. O `hermes gateway restart` reiniciou só o **perfil ativo**, não o gateway principal. O comando que eu precisava era `hermes -p default gateway restart`.
-2. O gateway lê as **rotas dos tópicos só quando inicia**. Eu adicionei rotas e nada mudou até reiniciar. Um bom sinal: o `gateway.pid` ganha um novo horário e um novo PID.
+Você deve ver uma linha `anthropic` com o tipo `oauth`.
 
-## Um tópico, um perfil
+## 2. Crie os perfis
 
-O roteamento é uma lista no `config.yaml` principal. Cada item liga um `chat_id` e um `thread_id` do Telegram (o tópico) a um perfil:
+Um perfil é um agente separado: tem o próprio `config.yaml`, `.env`, `SOUL.md`, memória e sessões. Crie um para cada especialista:
+
+```bash
+hermes profile create research --no-alias --description "Especialista em pesquisa: transforma objetivos vagos em perguntas e achados com fontes."
+hermes profile create developer --no-alias --description "Desenvolvedor: desenho de sistemas, especificações técnicas e planos de implementação."
+hermes profile create marketing --no-alias --description "Especialista em marketing: campanhas, textos e posicionamento."
+```
+
+Repita para `qa-security`, `business-analyst` e `orchestrator`.
+
+Dê a cada perfil de trabalho o modelo do Claude no `config.yaml`:
+
+```yaml
+model:
+  default: claude-haiku-4-5-20251001
+  provider: anthropic
+_config_version: 50
+```
+
+Cada perfil também precisa da credencial da Anthropic no próprio `.env`. Copie a linha `ANTHROPIC_TOKEN=` do passo 1 para cada um.
+
+## 3. Defina o papel de cada perfil
+
+O arquivo `SOUL.md` é o prompt de sistema do agente. Ele define o que o agente faz e o que ele não deve fazer. Este é o de pesquisa:
+
+```markdown
+# Research — Specialist
+
+You are the Research specialist on the team. You translate ambiguous goals
+into concrete questions, gather and evaluate information, and return findings
+you can cite.
+
+## What you do
+
+- Turn vague goals into research questions and acceptance criteria.
+- Gather requirements, market/domain context, feasibility, and data.
+- Evaluate sources and flag uncertainty, bias, or gaps.
+- Write findings as clear reports with what you assumed and what you still need.
+
+## Shared wiki under /research
+
+Save structured findings to `research/findings/<topic>.md` — methods, sources,
+key claims, confidence, open questions. Add a one-line summary to `research/index.md`
+whenever a finding is updated. Drop scratch notes in `notes/<topic>.md`.
+
+## Rules
+
+- Never invent a source, quote, or number. Say where it came from or that it is unverified.
+- Separate facts from inferences.
+- Flag anything the team cannot proceed without.
+```
+
+Escreva um `SOUL.md` para cada perfil no mesmo estilo: um papel curto, uma lista do que ele faz e uma lista de regras. As regras são o que mais importa, porque é ali que você diz o que o agente nunca deve fazer.
+
+## 4. Crie os tópicos no Telegram
+
+1. No Telegram, crie um grupo e ative os **Tópicos** nas configurações.
+2. Crie um tópico por perfil, por exemplo `research`, `developer`, `marketing`.
+3. Adicione o seu bot ao grupo e torne-o administrador.
+4. Envie uma mensagem em cada tópico. O gateway registra no log os IDs do grupo e do tópico quando recebe a mensagem.
+
+O `thread_id` de um tópico é o número no link dele. O Hermes também grava a lista de tópicos em `~/.hermes/channel_directory.json`, que é o lugar mais fácil de consultar.
+
+## 5. Direcione cada tópico ao seu perfil
+
+As rotas são uma lista no `~/.hermes/config.yaml` principal. Cada rota liga um tópico a um perfil:
 
 ```yaml
 profile_routes:
+  - name: topic-research
+    platform: telegram
+    profile: research
+    chat_id: "<id do seu grupo>"
+    thread_id: "17"
+    enabled: true
   - name: topic-developer
     platform: telegram
     profile: developer
-    chat_id: "<id do grupo>"
+    chat_id: "<id do seu grupo>"
     thread_id: "13"
     enabled: true
 ```
 
-Para testar, leio os nomes das sessões no `gateway.log`. Uma mensagem no tópico do desenvolvedor aparece como `agent:developer:telegram:group:...:13`. Se aparecer `agent:main`, a mensagem foi para o agente padrão e a rota não está ativa.
+Adicione uma entrada por tópico. O tópico **Geral** pode ficar sem rota, e nele as mensagens vão para o agente padrão.
 
-O tópico **Geral** do grupo não tem rota, então sempre cai no agente padrão. Isso é esperado.
+## 6. Reinicie o gateway
 
-## Dados pessoais merecem um grupo separado
+As rotas são lidas quando o gateway inicia, então reinicie o gateway principal depois de mudá-las:
 
-Depois quis mais dois agentes:
+```bash
+hermes -p default gateway restart
+```
 
-- **financial**: eu mando receitas e despesas em texto livre e peço relatórios.
-- **calendar**: ligado ao meu Google Calendar, para ler, mover, criar e apagar compromissos, mais uma mensagem todo dia às 6h com a agenda.
+Depois, em cada tópico, envie `/new` e uma mensagem como "quem é você?". O log do gateway mostra qual perfil respondeu:
 
-São dados **pessoais**, enquanto os outros tópicos são dados de **trabalho**. Então tomei três decisões:
+```text
+session=agent:research:telegram:group:<id do grupo>:17
+```
 
-- Um **grupo privado separado no Telegram**, com tópicos próprios, em vez de novos tópicos no grupo de trabalho.
-- Perfis próprios, para que memória, sessões e arquivos não sejam compartilhados com os agentes de trabalho.
-- O **modelo mais barato do Gemini** (`gemini-3.5-flash-lite`) com chave própria, já que as tarefas são pequenas. Um modelo gratuito fica como fallback.
+## 7. Defina a ordem de fallback
 
-Cada perfil também tem um `SOUL.md`, o arquivo que define a personalidade e as regras do agente. O financeiro registra cada lançamento numa planilha, nunca inventa um valor e pergunta quando algo não está claro. O de calendário confirma antes de mover ou apagar qualquer coisa. Os dois são instruídos a nunca mencionar os tópicos de trabalho.
+Se um provedor falhar, o Hermes tenta o próximo. No `config.yaml` principal:
 
-Um aviso honesto: os perfis separam memória e sessões, mas todos rodam na mesma máquina. Uma pasta no meu diretório pessoal pode ser lida por qualquer agente que navegue pelo disco. Para dados realmente privados, mantenha os arquivos dentro da pasta do próprio perfil.
+```yaml
+fallback_providers:
+  - provider: gemini
+    model: gemini-3.6-flash
+  - provider: nous
+    model: upstage/solar-mini4:free
+```
 
-## A cadeia de fallback
+## 8. Monte um grupo privado para dados pessoais
 
-Também defini uma ordem clara para quando um provedor falha: **Anthropic primeiro, depois Gemini, depois um modelo gratuito**. Assim, um limite de uso em um provedor deixa de virar "não consegui conectar ao serviço de modelo de IA".
+Agentes pessoais não devem compartilhar memória nem conversa com os agentes de trabalho. Use um segundo grupo:
 
-## O que ainda falta
+1. Crie um grupo privado novo com dois tópicos, `financial` e `calendar`, e adicione o bot.
+2. Crie os perfis com chave própria e um modelo mais barato:
 
-O agente de calendário ainda precisa do **login no Google Calendar**. Esse passo precisa do meu navegador e do meu consentimento, então é comigo. Quando funcionar, a agenda das 6h é um único cron job: `hermes cron create "0 6 * * *"`, com o fuso horário configurado para o meu.
+```bash
+hermes profile create financial --no-alias --description "Finanças pessoais: registra receitas e despesas, responde perguntas e gera relatórios."
+hermes profile create calendar --no-alias --description "Agenda pessoal: lê, cria, move e apaga eventos do Google Calendar."
+```
 
-## O que eu diria a mim mesmo ontem de manhã
+```yaml
+model:
+  default: gemini-3.5-flash-lite
+  provider: gemini
+fallback_providers:
+  - provider: nous
+    model: upstage/solar-mini4:free
+_config_version: 50
+```
 
-- Perfis são agentes separados. Confira as credenciais de **cada um**.
-- Reinicie o gateway certo e confirme com o PID e o log.
-- Leia os nomes das sessões nos logs. Eles mostram qual perfil respondeu.
-- Separe dados pessoais e de trabalho em grupos diferentes e dê um modelo mais barato aos agentes pessoais.
+Coloque uma chave do Gemini no `.env` de cada um e não copie o token da Anthropic para lá.
+
+3. Escreva o `SOUL.md`. O do financeiro:
+
+```markdown
+# Financial — Personal Finance Assistant
+
+You are the user's private personal-finance assistant. Everything here is
+personal data, separate from the work profiles. Never reference, ask about or
+reveal anything from work topics or other profiles.
+
+## What you do
+
+- Record incomes and expenses the user sends in free text (e.g. "spent 45 on
+  lunch"). Capture date (default today), amount, currency, category and a short note.
+  Confirm each entry in one line.
+- Keep the ledger in `finance/ledger.csv` (date,type,amount,currency,category,note).
+  Append only. To correct an entry, add a reversing row and say so.
+- Produce reports on request: totals by period, by category, income vs expense,
+  balance, trends.
+
+## Rules
+
+- Never invent or guess amounts. If an amount, date or type is ambiguous, ask.
+- Compute totals from the ledger, not from memory.
+- Keep replies short.
+```
+
+O do calendário segue a mesma estrutura. As regras dele: antes de mover ou apagar um evento, informar exatamente qual evento vai mudar e pedir confirmação; confirmar cada alteração depois, com a data e a hora finais; nunca adivinhar o fuso horário.
+
+4. Adicione as duas rotas em `profile_routes` no `config.yaml` principal, com o ID do grupo privado e os IDs dos dois tópicos.
+5. Reinicie o gateway com `hermes -p default gateway restart` e teste os dois tópicos da mesma forma que no passo 6.
+
+## 9. Agende uma agenda diária
+
+O agente de calendário pode enviar uma mensagem todas as manhãs:
+
+```bash
+hermes -p calendar cron create "0 6 * * *" --name "daily-agenda" "Envie a agenda de hoje: compromissos em ordem de horário, com hora, título e local, e depois os conflitos."
+```
+
+O agendamento usa o fuso horário da máquina, então configure-o antes.
+
+## Duas notas sobre privacidade
+
+Os perfis separam memória e sessões, mas todos rodam na mesma máquina. Uma pasta no seu diretório pessoal pode ser lida por qualquer agente que navegue pelo disco. Para dados que precisam ficar privados, mantenha os arquivos dentro da pasta do próprio perfil, e não em um caminho compartilhado.
+
+Mantenha o ID do grupo pessoal e os tokens fora de qualquer repositório ou post. Só os marcadores acima devem aparecer em arquivos compartilhados.
