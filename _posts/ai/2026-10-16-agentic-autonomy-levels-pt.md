@@ -3,7 +3,7 @@ layout: post
 title: "Agentic Autonomy Levels: Da Sugestão à Orquestração"
 date: 2026-10-16 00:00:00 +0000
 description: Entenda os 6 níveis de autonomia de agentes de IA, da assistência básica até a orquestração completa
-img: ai/agentic-autonomy.png
+img: ai/agentic_autonomy_levels.jpg
 tags: [AI, Agentes, Autonomia, LLM]
 ---
 

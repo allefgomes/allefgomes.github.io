@@ -3,7 +3,7 @@ layout: post
 title: "Agentic Autonomy Levels: From Suggestions to Orchestration"
 date: 2026-10-16 00:00:00 +0000
 description: Understand the 6 levels of AI agent autonomy, from basic assistance to full orchestration
-img: ai/agentic-autonomy.png
+img: ai/agentic_autonomy_levels.jpg
 tags: [AI, Agents, Autonomy, LLM]
 ---
 
