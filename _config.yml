@@ -39,5 +39,6 @@ defaults:
       path: "pt"
     values:
       lang: pt
+      permalink: /pt/:title/
 
 exclude: ["README.md"]
