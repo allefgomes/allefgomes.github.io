@@ -126,7 +126,7 @@ A **manager agent orchestrates everything**. You only intervene on exceptions.
 ## Which level to use?
 
 | Level | When to use | Risk | Benefit |
-|-------|------------|------|---------|
+|-------|------------|------|---------| 
 | 0 | Exploration, ideation | Low | Quick feedback |
 | 1 | Small tasks | Low | Productivity |
 | 2 | Well-defined features | Medium | Controlled autonomy |

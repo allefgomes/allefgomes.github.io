@@ -126,7 +126,7 @@ Um **manager agent orquestra tudo**. Você só intervém em exceções.
 ## Qual nível usar?
 
 | Level | Quando usar | Risco | Benefício |
-|-------|------------|-------|-----------|
+|-------|------------|-------|-----------| 
 | 0 | Exploração, ideação | Baixo | Rápido feedback |
 | 1 | Tarefas pequenas | Baixo | Produtividade |
 | 2 | Features bem definidas | Médio | Autonomia controlada |
