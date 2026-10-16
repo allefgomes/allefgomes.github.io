@@ -1,7 +1,7 @@
 title: Allef Gomes
 description: > # this means to ignore newlines until "baseurl:"
   I am a software developer focusing in backend with ruby, elixir and nodejs but I have expiriencies with Angular2+, ReactJs, React-Native, Ionic and others techs.
-permalink: /:categories/:title/  # English posts live in _posts/ -> /:title/, Portuguese in pt/_posts/ -> /pt/:title/
+permalink: /:title/
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://allefgomes.github.io"
 site-twitter: #if your site has a twitter account, enter it here
@@ -39,5 +39,6 @@ defaults:
       path: "pt"
     values:
       lang: pt
+      permalink: /pt/:title/
 
 exclude: ["README.md"]
